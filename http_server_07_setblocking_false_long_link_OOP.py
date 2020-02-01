@@ -7,10 +7,10 @@ import time
 class HttpServer():
     # 功能：接收客户端发来的请求信息，传递给框架，并接收框架处理好的信息，传递给客户端。
     # 此类提供http服务器功能，仅仅负责接收发送数据，不处理数据。数据处理功能通过传递参数交给框架类处理
-    def __init__(self,web_frame):
+    def __init__(self,handle_client):
         self.recv_data_from_client = '' 
         self.recv_data_from_frame = ''
-        self.web_frame = web_frame #接收框架对象作为参数传递进来
+        self.handle_client = handle_client #接收框架对象里的方法作为参数传递进来
         print(self.recv_data_from_client)
     
     def run_forever(self):
@@ -41,7 +41,7 @@ class HttpServer():
                 else:
                     print('---new message---')
                     if self.recv_data_from_client:  #如果有数据就调用函数
-                        send_data = self.web_frame.handle_client(self.recv_data_from_client)
+                        send_data = self.handle_client(self.recv_data_from_client)
                         new_socket.send(send_data)
                     else:  #如果没有数据，说明客户端已经挥手，关闭套接字
                         print('*************delete*************')
@@ -97,7 +97,7 @@ class WebFrame():
 def main():
     #recv_data = 'GET /hello.txt HTTP/1.1'
     web_frame = WebFrame()
-    http_server = HttpServer(web_frame)
+    http_server = HttpServer(web_frame.handle_client)
     http_server.run_forever()
 
 if __name__ == "__main__":

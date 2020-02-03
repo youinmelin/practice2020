@@ -50,15 +50,14 @@ Here is the full list of available characters that can be used:
 	- s - skipped
 	- x - xfailed
 	- X - xpassed
-	10 Chapter 2. Usage and Invocations
-	pytest Documentation, Release 5.3
 	- p - passed
 	- P - passed with output
 	- a - all except pP
 	- A - all
-*P12 **2.8**  Dropping to PDB (Python Debugger) on failures
+
+* P12 **2.8**  Dropping to PDB (Python Debugger) on failures
 `pytest --pdb`
-**2.9** Dropping to PDB (Python Debugger) at the start of a test
+* **2.9** Dropping to PDB (Python Debugger) at the start of a test
 'pytest --trace'
-*p14 **2.14**  Creating JUnitXML format files
+* p14 **2.14**  Creating JUnitXML format files
 `pytest --junitxml=path`

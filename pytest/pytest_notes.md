@@ -82,15 +82,15 @@
 
 The -r flag can be used to display a “short test summary info” at the end of the test session.The -r options accepts a number of characters after it, with a used above meaning “all except passes”.
 Here is the full list of available characters that can be used:
-	- f - failed
-	- E - error
-	- s - skipped
-	- x - xfailed
-	- X - xpassed
-	- p - passed
-	- P - passed with output
-	- a - all except pP
-	- A - all
+- f - failed
+- E - error
+- s - skipped
+- x - xfailed
+- X - xpassed
+- p - passed
+- P - passed with output
+- a - all except pP
+- A - all
 
 * P12 **2.8**  Dropping to PDB (Python Debugger) on failures
 

@@ -116,4 +116,8 @@ cd <repository>
 pip install -e . # Environment dependent alternatives include
 		 # 'python setup.py develop' and 'conda develop'
 ```
+## CHAPTER 4
+### The writing and reporting of assertions in tests
 
+* **4.1**  Asserting with the *assert* statement
+    

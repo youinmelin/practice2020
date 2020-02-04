@@ -1,0 +1,13 @@
+import turtle as tt
+tt.penup()
+tt.setposition(-200,0)
+tt.pendown()
+tt.color('red')
+tt.pensize(3)
+tt.speed(10)
+tt.right(25)
+tt.circle(90,50)
+tt.circle(-90,50)
+tt.circle(90,50)
+tt.circle(-90,50)
+tt.done()

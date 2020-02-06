@@ -40,7 +40,8 @@ class Downloader():
             page_data = page_data.decode('utf-8')
             #print(page_data)
 #            self.file_name_list = re.findall(r"https://.*?\.jpg", page_data)
-            self.file_name_list = re.findall(r'<img src="(.*?.jpg)"', page_data)
+            re_str = r'src="(.*?\.jpg)"'
+            self.file_name_list = re.findall(re_str, page_data)
             if len(self.file_name_list) == 0:
                 try:
                     page_data = ret.read()
@@ -49,7 +50,7 @@ class Downloader():
                 except Exception as e:
                     print(e)
                 else:
-                    self.file_name_list = re.findall(r'<img src="(.*?.jpg)"', page_data)
+                    self.file_name_list = re.findall(re_str, page_data)
         print(len(self.file_name_list))
 
     def write_file(self,file_content,name):

@@ -12,3 +12,5 @@
 ### 2020-2-3 Monday
 * 今天学习pytest，用vim写markdown的笔记，但是vim对markdown的高亮显示支持不好，于是准备装一个markdown的插件。就这点事折腾了一天，先是准备装一个插件管理器叫vim-plug.按照github上和CSDN上的说明，怎么也不成功。后来又装vundle，还是不行。查了好多资料，发现在linux和iso上用的比较多。到了晚上，我决定把插件程序放在多个目录下试试，果然安装vundle成功了，看来是路径放错了。接下来安装Vim Markdown，顺利！
 * 不过折腾一天电脑，这眼睛真受不了，写电子笔记的计划先放一放吧。
+### 2020-2-6 Thursday
+* 继续学习pytest，学到了第五章fixture。这几天还学了python的闭包closure,yield，迭代器，生成器，装饰器，实践了用迭代器和生成器建立斐波那契数列(Fibonacci sequence)

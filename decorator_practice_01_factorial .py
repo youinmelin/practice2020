@@ -2,9 +2,9 @@ def outside(func):
     def inside(num):
         print('begin--->')
         func(num)
-        j = 0
-        for i in range(num+1):
-            j += i
+        j = 1
+        for i in range(1,num+1):
+            j *= i
         print(j)
         print('<---end')
     return inside
@@ -14,4 +14,4 @@ def sum_result(arg):
     #a = 1
     print(arg)
 
-sum_result(100)
+sum_result(5)

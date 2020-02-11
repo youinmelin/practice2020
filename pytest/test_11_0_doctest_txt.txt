@@ -1,0 +1,6 @@
+pytest --doctest-glob='*.rst' test_11_0_doctest_txt.txt
+This is a foctest
+
+>>> x = 3
+>>> x
+3

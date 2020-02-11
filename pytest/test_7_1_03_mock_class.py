@@ -1,3 +1,4 @@
+# 通过类传递值到test函数，失败，原因目前还搞不清楚2020-2-8
 
 from pathlib import Path
 
@@ -5,13 +6,18 @@ def getpath():
     return Path.home()
 
 class MockResponse:
+    @staticmethod
     def mockreturn():
-        return Path('/abc')
+        return '/abc'
 
-def test_getpath(MockResponse):
-    def mockresponse():
+def test_getresopnse(monkeypatch):
+    def getmock(*args, **kwargs):
         return MockResponse()
-
-    monkeypatch.setattr(path, 'home', mockreturn)
+    print(getmock())
+    print(getmock)
+    monkeypatch.setattr(Path, 'home', getmock)
     xpath = getpath()
-    assert xpath == mockresponse
+    print('xpath',xpath)
+    assert xpath == '/abc'
+
+#getresopnse()

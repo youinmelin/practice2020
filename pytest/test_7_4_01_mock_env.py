@@ -1,5 +1,6 @@
 import os
 import pytest
+
 def get_os_user_lower():
     username = os.getenv('USER')
     if username is None:

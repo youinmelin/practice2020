@@ -9,10 +9,11 @@ class Maze():
 
     def go_ahead(self):
         # print(f'x={x},y={y},{direction}')
-        dir_dict = {'down':[0,1],'right':[1,0],'up':[0,-1],'left':[-1,0]}
-        dir_list = [[0,1,'down'],[1,0,'right'],[0,-1,'up'],[-1,0,'left']]
-        y,x,direction = dir_list[random.randint(0,3)]
-        # direction = input('input a direction:')
+
+        # dir_list = [[0,1,'down'],[1,0,'right'],[0,-1,'up'],[-1,0,'left']]
+        # y,x,direction = dir_list[random.randint(0,3)]
+        dir_dict = {'down': [0, 1], 'right': [1, 0], 'up': [0, -1], 'left': [-1, 0]}
+        direction = input('input a direction:')
         y,x = dir_dict[direction] 
         print(direction)
         self.currentx += x
@@ -47,15 +48,11 @@ if __name__ == '__main__':
                   [0,1,1,1,1,1,0],
                   [0,0,0,1,0,0,0],
                   [0,0,0,1,1,1,0],
-                  [0,0,0,1,1,1,0],
-                  [0,0,0,1,1,1,0],
-                  [0,0,0,1,1,1,0],
-                  [0,0,0,1,1,1,0],
-                  [0,0,0,1,1,1,0],
                   [0,0,0,0,1,1,0],
                   [0,1,1,1,0,1,0],
                   [0,1,1,0,1,1,0],
                   [0,1,1,1,1,2,0],
                   [0,0,0,0,0,0,0]]
-    # print(maze_list1) maze1 = Maze(maze_list1)
+    # print(maze_list1)
+    maze1 = Maze(maze_list1)
     maze1.go_ahead()

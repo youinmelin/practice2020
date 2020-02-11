@@ -6,6 +6,8 @@ def getssh():
 def test_getssh(monkeypatch):
     def mockreturn():
         return Path('/abc')
-    monkeypatch.setattr(Path, 'home', mockreturn) 
+    print(mockreturn())
+    monkeypatch.setattr(Path, 'home', mockreturn)
     x = getssh()
+    print("x", x)
     assert x == Path('/abc')

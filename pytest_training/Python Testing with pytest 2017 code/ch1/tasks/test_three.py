@@ -4,7 +4,8 @@ from collections import namedtuple
 
 Task = namedtuple('Task', ['summary', 'owner', 'done', 'id'])
 Task.__new__.__defaults__ = (None, None, False, None)
-
+# You can use __new__.__defaults__ to create Task objects
+# without having to specify all the fields.
 
 def test_defaults():
     """Using no parameters should invoke defaults."""

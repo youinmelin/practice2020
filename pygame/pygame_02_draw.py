@@ -2,6 +2,7 @@
 import pygame,sys
 import time
 import random
+import math
 
 pygame.init()
 screen = pygame.display.set_mode((800,600))
@@ -16,6 +17,15 @@ pygame.display.update()
 pygame.draw.rect(screen,(0,255,0),(250,250,100,30),3)
 pygame.display.update()
 
+#画弧线
+
+pygame.draw.arc(screen,(0,0,0),(110,100,100,100),0,math.pi/4,2)
+a = pygame.draw.arc(screen,(0,222,0),(100,100,100,200),0,math.pi/2,2)
+print (a)
+b = pygame.draw.circle(screen,(0,0,0),(100,100),3,0)
+pygame.display.update()
+
 pygame.draw.lines(screen,(0,255,255),False,((100,190),(300,300),(10,10)),1)
+print(b)
 pygame.display.update()
 time.sleep(2)

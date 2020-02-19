@@ -24,10 +24,10 @@ class Draw:
         if r < width:
             print ('ERROR: width can not greater than radius')
             r = width
-#        x2 = int(x + r*(math.cos(angle_a*math.pi/180)))
-#        y2 = int(y + r*(math.sin(angle_a*math.pi/180)))
-        x2 = r2 * math.cos(angle_b*math.pi/180) + center_x
-        y2 = r2 * math.sin(angle_b*math.pi/180) + center_y
+        x2 = int(x + r*(math.cos(angle_a*math.pi/180)))
+        y2 = int(y + r*(math.sin(angle_a*math.pi/180)))
+        # x2 = r2 * math.cos(angle_b*math.pi/180) + center_x
+        # y2 = r2 * math.sin(angle_b*math.pi/180) + center_y
         pygame.draw.circle(self.surface,color,(x2,y2),r,width)
         pygame.display.update()
         time.sleep(st)
@@ -65,9 +65,7 @@ class Draw:
         center_x = x - r
         center_y = y
         # print(center_x,center_y)
-#        x2 = r * math.cos(angle_b*math.pi/180) + center_x
-#        y2 = r * math.sin(angle_b*math.pi/180) + center_y
-        x2 = -r * math.cos(stop_angle) + center_x
+        x2 = r * math.cos(stop_angle) + center_x
         y2 = -r * math.sin(stop_angle) + center_y
         return x2,y2
 

@@ -18,17 +18,21 @@ class Draw:
         time.sleep(st)
         return x2,y2
 
-    def circle(self,r,x,y,angle_a = 0,width =1,color=(0,0,0),st = 0):
+    def circle(self,r,x,y,angle_a = 0,width =1,color=(0,0,0),st = 0,center = False):
         angle_a += 90
         r = int(r)
         if r < width:
             print ('ERROR: width can not greater than radius')
             r = width
-        x2 = int(x + r*(math.cos(angle_a*math.pi/180)))
-        y2 = int(y + r*(math.sin(angle_a*math.pi/180)))
-        # x2 = r2 * math.cos(angle_b*math.pi/180) + center_x
-        # y2 = r2 * math.sin(angle_b*math.pi/180) + center_y
-        pygame.draw.circle(self.surface,color,(x2,y2),r,width)
+        # center is False: x,y are the rightmost point.
+        # center is True: x,y are the center point.
+        if center == False:
+            center_x = int(x + r*(math.cos(angle_a*math.pi/180)))
+            center_y = int(y + r*(math.sin(angle_a*math.pi/180)))
+        else:
+            center_x = x
+            center_y = y
+        pygame.draw.circle(self.surface,color,(center_x,center_y),r,width)
         pygame.display.update()
         time.sleep(st)
 
@@ -46,26 +50,34 @@ class Draw:
         time.sleep(st)
         center_x = x - r1
         center_y = y 
-        x2 = r2 * math.cos(angle_b*math.pi/180) + center_x
-        y2 = r2 * math.sin(angle_b*math.pi/180) + center_y
+        x2 = r1 * math.cos(angle_b*math.pi/180) + center_x
+        y2 = -r2 * math.sin(angle_b*math.pi/180) + center_y
         return x2,y2
 
-    def arc(self,r,x,y,angle_a,angle_b,width=1,color=(0,0,0),st = 0):
+    def arc(self,r,x,y,angle_a,angle_b,width=1,color=(0,0,0),st = 0,center = False):
         ''' r:radius
-            x,y:circle's rightmost point
+            if center is False: x,y are the rightmost point
             angle_a:circle's start angle
             right->0,top->90,left->180,bottom->270
         '''
-        rect = x-2*r,y-r,2*r,2*r
+        if r < width:
+            print ('ERROR: width can not greater than radius')
+            r = width
+        if center == False:
+            rect = x-2*r,y-r,2*r,2*r
+            center_x = x - r
+            center_y = y
+        else:
+            rect = x-r,y-r,2*r,2*r
+            center_x = x 
+            center_y = y
         start_angle = angle_a*math.pi/180
         stop_angle = angle_b*math.pi/180
         pygame.draw.arc(self.surface,color,rect,start_angle,stop_angle,width)
         pygame.display.update()
         time.sleep(st)
-        center_x = x - r
-        center_y = y
         # print(center_x,center_y)
-        x2 = r * math.cos(stop_angle) + center_x
+        x2 = r * math.cos(stop_angle) + center_x -r
         y2 = -r * math.sin(stop_angle) + center_y
         return x2,y2
 
@@ -78,20 +90,25 @@ def main():
     y = 300
     color = 255,0,0
     length = 50
-    length2 = 100
+    length2 = 10
     angle_a = 90
-    sleep_time = 1
+    sleep_time = 2
     tt = Draw(screen)
     x,y = tt.line(length,x,y,angle_a,st=sleep_time)
     print(x,y)
     tt.circle(3,x,y,width = 3)
-    x,y = tt.arc(length,x,y,0,45,color=color,st=sleep_time)
+    x,y = tt.arc(length,x,y,0,45,color=color,st=sleep_time,center=True)
     tt.circle(3,x,y,width = 3)
+    x,y = tt.arc(length,x,y,0,30,color=color,st=sleep_time,center=True)
+    tt.circle(3,x,y,width = 3)
+    x,y = tt.arc(length,x,y,0,90,color=color,st=sleep_time,center=True)
     print(x,y)
-#    x,y = tt.arc_e(length,length2,x,y,0,180,color=color,st=sleep_time)
-#    tt.circle(3,x,y,width = 3)
-#    x,y = tt.arc_e(length,length2,x,y,0,80,color=color,st=sleep_time)
-#    tt.circle(3,x,y,width = 3)
+    # x,y = tt.arc_e(length,length2,x,y,0,180,color=color,st=sleep_time)
+    # tt.circle(3,x,y,width = 3)
+    # x,y = tt.arc_e(length,length2,x,y,0,145,color=color,st=sleep_time)
+    # tt.circle(3,x,y,width = 3)
+    # x, y = tt.arc_e(length, length2, x, y, 0, 90, color=color, st=sleep_time)
+    # tt.circle(3, x, y, width=3)
 #    print(x,y)
     # angle_a = angle_a + 90
     # x2 = x + length*(math.sin(angle_a*math.pi/180))

@@ -1,10 +1,10 @@
-from pygame_00_base_fog import *
+from pygame_00_base_frog import *
 
 pygame.init()
 screen = pygame.display.set_mode((800,800))
 # screen.fill((255,255,255))
 # pygame.display.update()
-fog = Draw(screen)
+frog = Draw(screen)
 length = 300
 x = 400
 y = 400
@@ -19,6 +19,7 @@ for i in range(1,num):
     # screen.fill((0,0,0))
     # pygame.display.update()
     # x,y = fog.line(length,x,y,angle,st = st)
-    fog.circle(i,x,y,angle,1,color,st = st)
+    frog.circle(i,x,y,angle,1,color,st = st)
+    frog.circle(3 * i, x, y, angle, 1, color, st=st, center=True)
 
 time.sleep(10)

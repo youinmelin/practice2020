@@ -1,4 +1,4 @@
-from pygame_00_base_fog import *
+from pygame_00_base_frog import *
 
 pygame.init()
 screen = pygame.display.set_mode((800,800))

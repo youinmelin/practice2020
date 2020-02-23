@@ -6,7 +6,6 @@ import smtplib
 
 #@pytest.fixture(scope='module')
 @pytest.fixture
-#@pytest.fixture
 def smtp_connection():
     with smtplib.SMTP('smtp.sina.com',25,timeout=5) as smtp_connection:
         yield smtp_connection  # provide the fixture value

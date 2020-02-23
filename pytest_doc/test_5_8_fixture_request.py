@@ -4,8 +4,8 @@
 import pytest
 import smtplib
 
-#@pytest.fixture(scope='module')
-@pytest.fixture
+@pytest.fixture(scope='module')
+#@pytest.fixture
 def smtp_connection(request):
     print(request)
     print(dir(request.module))

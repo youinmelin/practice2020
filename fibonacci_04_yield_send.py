@@ -20,10 +20,11 @@ ret = fi.send('ABC')
 print(ret)
 
 
-#while True:
-#    try:
-#        ret = next(fi)
-#        print(ret)
-#    except Exception as e:
-#        print(e.value)
-#        break
+while True:
+    try:
+        # ret = next(fi)
+        ret = fi.send('ABC')
+        print(ret)
+    except Exception as e:
+        print(e.value)
+        break

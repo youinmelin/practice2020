@@ -5,6 +5,7 @@ def fibonacci(num):
     while c < num:
         c += 1
 #        print (f'{c}:{n1}')
+        # 使用了yield关键字的函数不再是函数，而是生成器
         yield n1
         n1, n2 = n2, n1 + n2
     return 'finished'
@@ -15,5 +16,5 @@ while True:
         ret = next(fi)
         print(ret)
     except Exception as e:
-        print(e.value)
+        print(e)
         break

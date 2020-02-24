@@ -1,1 +1,4 @@
-https://pragprog.com/titles/bopytest/source_code
+https://pragprog.com/titles/bopytest/source_code 
+
+pip install ./tasks_proj/
+

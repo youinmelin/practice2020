@@ -26,6 +26,10 @@ fps = 300
 fclock = pygame.time.Clock()
 
 while True:
+    r = int(( ball_rect.right/WIN_X)*255)
+    g = int((ball_rect.bottom/WIN_Y)*255)
+    b = abs(speedx -speedy)
+    print ( 'r,g,b',r,g,b)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()

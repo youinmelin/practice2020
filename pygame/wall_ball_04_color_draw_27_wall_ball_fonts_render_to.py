@@ -1,10 +1,21 @@
-# https://www.bilibili.com/video/av19574503?p=24
-# draw 
+# https://www.bilibili.com/video/av19574503?p=27
+# turn ball to text ,use render to
+# when press mouse left key, the ball stop. 
+# when press mouse left key and move mouse, the ball move with the mouse
+# when release mouse left key, the ball continue to move 
 import pygame,sys
+import pygame.freetype
 
 pygame.init()
 WIN_X = 500
 WIN_Y = 600
+GOLD = 255,251,0
+RED = pygame.Color('red')
+WHITE = 255,255,255
+GREEN = pygame.Color('green')
+BLACK = 0,0,0
+pos = [230, 160]
+# 建立字体对象
 icon = pygame.image.load('icon.png')
 pygame.display.set_icon(icon)
 pygame.display.set_caption('WALL BALL')
@@ -12,25 +23,20 @@ screen = pygame.display.set_mode((WIN_X,WIN_Y),pygame.RESIZABLE)
 # screen = pygame.display.set_mode((WIN_X,WIN_Y),pygame.NOFRAME)
 # screen = pygame.display.set_mode((WIN_X,WIN_Y),pygame.FULLSCREEN)
 # screen = pygame.display.set_mode((WIN_X,WIN_Y))
+# f1 = pygame.freetype.Font('C://Windows//Fonts//msyh.ttc',36)
+f1 = pygame.freetype.Font(None,36)
+f1rect = f1.render_to(screen,pos,'NASA',fgcolor=GOLD,size=50)
 ball_img = 'PYG02-ball.gif'
-speedx = 1
-speedy = 1
+speedx = speedfx = 1
+speedy = speedfy = 1
 # mark the ball's status
 still = False
 ball = pygame.image.load(ball_img)
 ball_rect = ball.get_rect()
-fps = 50
+fps = 300
 fclock = pygame.time.Clock()
 
 while True:
-    r = int(( ball_rect.right/WIN_X)*255)
-    g = int((ball_rect.bottom/WIN_Y)*255)
-    speed = abs(speedx -speedy)
-    if speed >=25:
-        speed = 25
-    b = int(speed/25*255)
-    pygame.display.flip()
-    print ( 'r,g,b',r,g,b)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -92,7 +98,16 @@ while True:
         if ball_rect.bottom > WIN_Y:
             ball_rect.bottom = WIN_Y
     # print (ball_rect)
-    screen.fill((r,g,b))
+    if pos[0]<0 or pos[0] > WIN_X:
+        speedfx = -speedfx
+    if pos[1]<0 or pos[1] > WIN_Y:
+        speedfy = -speedfy
+    pos[0] = pos[0] + speedfx
+    pos[1] = pos[1] + speedfy
+
+    screen.fill((0,0,0))
+    # render_to must be after the fill
+    f1rect = f1.render_to(screen,pos,'NASA',fgcolor=GOLD,size=50)
     screen.blit(ball,ball_rect)
-    pygame.display.flip()
+    pygame.display.update()
     fclock.tick(fps)

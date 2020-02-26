@@ -1,5 +1,4 @@
-# https://ukdevguy.com/how-to-create-a-game-window-in-pygame/
-
+# https://www.bilibili.com/video/av19574503?p=24
 import pygame
 import sys
 

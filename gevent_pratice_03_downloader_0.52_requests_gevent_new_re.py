@@ -48,11 +48,14 @@ class Downloader():
             print ('e',e)
         else:
             page_data = res.text
-            #page_data = page_data.decode('utf-8')
-            #print(page_data)
-#            self.file_name_list = re.findall(r"https://.*?\.jpg", page_data)
-            re_str = r'src="(.*?\.jpg)"'
-            self.file_name_list = re.findall(re_str, page_data)
+            page_data_list = page_data.split('img')
+            for page_data_str in page_data_list:
+                re_str = r'src="(.*?\.jpg)"'
+                # re_str = r'https:.+\.jpg' 
+                ret = re.search(re_str, page_data_str)
+                if ret:
+                    self.file_name_list.append(ret.group(1))
+            # self.file_name_list = re.findall(re_str, page_data)
             print(self.file_name_list)
             if len(self.file_name_list) == 0:
                 try:

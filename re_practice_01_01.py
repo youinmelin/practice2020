@@ -11,11 +11,10 @@ Expressions.'''
 
 import re
 tel_list=['Alex 80-23425525', 'Emily 322-56775342', 'Grace 20-24564555', 'Anna 194-49611659']
-re_str = r'\d{3}-\d{8}'
-for num in tel_list:
-    ret = re.search(re_str,num)
-    if ret:
-        # print (ret.group()) 
-        print(num,'yes')
-    else:
-        print (num,'no')
+re_str =r'(\d{2,3})-' 
+pattern = re.compile(re_str)
+for tel_str in tel_list:
+    result = pattern.search(tel_str)
+    length_str = len(result.group(1))
+    if length_str == 3:
+        print(tel_str)

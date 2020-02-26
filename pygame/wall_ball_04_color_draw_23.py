@@ -1,5 +1,8 @@
-# https://www.bilibili.com/video/av19574503?p=24
-# draw 
+# https://www.bilibili.com/video/av19574503?p=23
+# mouse event
+# when press mouse left key, the ball stop. 
+# when press mouse left key and move mouse, the ball move with the mouse
+# when release mouse left key, the ball continue to move 
 import pygame,sys
 
 pygame.init()

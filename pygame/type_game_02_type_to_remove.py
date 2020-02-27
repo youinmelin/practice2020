@@ -35,41 +35,29 @@ alphabet_list = 'abcdefghijklmnopqrstuvwxyz'
 font_size = 50
 font = pygame.freetype.Font(None, font_size)
 letter = alphabet_list[random.randint(0,25)]
-# status --> 'waiting' waiting for type; 'yes': right type; 'wrong': wrong type
-status = 'waiting'
 while True:
     if pos[1] >= WIN_Y:
-        status = 'waiting'
         pos[0] = random.randint(0,WIN_X-font_size)
         pos[1] = 0
         letter = alphabet_list[random.randint(0,25)]
         color = color_list[random.randint(0,len(color_list)-1)]
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: 
+        if event.type == pygame.QUIT:
             print ('BYE-BYE')
             pygame.quit()
             sys.exit()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                print ('BYE-BYE')
-                pygame.quit()
-                sys.exit()
-        if event.type == pygame.KEYDOWN:
-            if event.unicode and status != 'yes':
-                # type right
+            if event.unicode:
                 if event.unicode == letter:
-                    status = 'yes' 
+                    pos[1] = 0
+                    pos[0] = random.randint(0,WIN_X-font_size)
+                    letter = alphabet_list[random.randint(0,25)]
+                    color = color_list[random.randint(0,len(color_list)-1)]
                     print('yes')
                 else:
-                    status = 'wrong'
                     print('wrong',event.unicode)
 
-    if status == 'yes':
-        font_surf, font_rect = font.render('YES',color,size = 30)
-    elif status == 'waiting':
-        font_surf, font_rect = font.render(letter,color)
-    elif status == 'wrong':
-        font_surf, font_rect = font.render('NO-'+letter,color,size = 30)
+    font_surf, font_rect = font.render(letter,color)
     screen.fill(BLACK)
     pos[1] += 5
     screen.blit(font_surf,(pos[0],pos[1]))

@@ -12,16 +12,17 @@ class HttpServer():
         self.recv_data_from_frame = ''
         self.handle_client = handle_client #接收框架对象里的方法作为参数传递进来
         print(self.recv_data_from_client)
-    
+   
     def run_forever(self):
         #print(recv_data_from_frame)
         server_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         server_socket.bind(('',7890))
         server_socket.listen(128)
-        client_socket_list = []
+        client_socket_list = [] # 存储新访问的套接字
         server_socket.setblocking(False)  #设置套接字为非堵塞
         while True:
             try:
+                # 如果有新客户端请求就进行处理
                 client_socket,client_addr = server_socket.accept()
             except Exception:
                 print('---no new client---')
@@ -29,8 +30,10 @@ class HttpServer():
             else:
                 print('---new client---')
                 client_socket.setblocking(False)
+                # 将新的套接字存进列表中
                 client_socket_list.append(client_socket)
 
+            # 遍历列表，如果有套接字收到消息，就处理
             for new_socket in client_socket_list:
                 print(client_socket_list)
                 try:

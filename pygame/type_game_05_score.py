@@ -18,8 +18,7 @@ color_list = [ WHITE, GOLD, RED, GREEN, BLUE, YELLOW]
 color = color_list[random.randint(0,len(color_list)-1)]
 fps = 200
 fclock = pygame.time.Clock()
-wrong_file = 'audios\\wrong.mp3'
-right_file = 'audios\\bingo.mp3'
+
 title_name = 'new pygame'
 init_result = pygame.init()
 
@@ -71,14 +70,10 @@ while True:
                 # type right
                 if event.unicode == letter:
                     status = 'yes' 
-                    pygame.mixer.music.load(right_file) 
-                    pygame.mixer.music.play()
                     score += 1
                     print('yes')
                 else:
                     status = 'wrong'
-                    pygame.mixer.music.load(wrong_file) 
-                    pygame.mixer.music.play()
                     score -= 1
                     if score <= 0:
                         score = 0

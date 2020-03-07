@@ -18,17 +18,14 @@ class GameSprite(pygame.sprite.Sprite):
         self.rect.y += self.speed
 
 class Hero(GameSprite):
-    def __init__(self,speed = 0, live = True):
+    def __init__(self,speed = 0):
         # 调用父类的初始化方法
         super().__init__('images\\plane_images\\me1.png')
         self.speed = speed
-        self.live = live
         self.rect.y = SCREEN_RECT.bottom - self.rect.height
         self.bullet_group = pygame.sprite.Group()
         self.bullet = Bullet(0,0)
         self.i = 1
-        self.j = 1
-        self.max = 50
 
     def update(self):
         if self.rect.right > SCREEN_RECT.width:
@@ -43,8 +40,6 @@ class Hero(GameSprite):
         else:
             self.image = pygame.image.load('images\\plane_images\\me2.png')
         self.i += 1
-        if self.live == False:
-            self.died()
 
     def change(self):
         if self.i > 500:
@@ -53,21 +48,6 @@ class Hero(GameSprite):
         for i in range(0,3):
             self.bullet = Bullet(self.rect.centerx,self.rect.y-i*15)
             self.bullet_group.add(self.bullet)
-
-    def died(self):
-        if self.j < self.max / 4:
-            self.image = pygame.image.load('images\\plane_images\\me_destroy_1.png')
-        elif self.j < self.max*2 / 4:
-            self.image = pygame.image.load('images\\plane_images\\me_destroy_2.png')
-        elif self.j < self.max*3 / 4:
-            self.image = pygame.image.load('images\\plane_images\\me_destroy_3.png')
-        else:
-            self.image = pygame.image.load('images\\plane_images\\me_destroy_4.png')
-        self.j += 1
-        if self.j > self.max:
-            self.kill()
-            print('hero killed')
-
 
 class BackGround(GameSprite):
     def __init__(self,pos_y = 0):

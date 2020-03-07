@@ -31,9 +31,7 @@ class MainWindow():
 
         self.hero = Hero()
         self.hero_group = pygame.sprite.Group(self.hero)
-        self.enemy = Enemy()
         self.enemy_group = pygame.sprite.Group()
-        self.enemy_group.add(self.enemy)
 
 
     def __event_handler(self):
@@ -42,9 +40,9 @@ class MainWindow():
                 print ('BYE-BYE')
                 pygame.quit()
                 sys.exit()
-            if event.type == HERO_FIRE_EVENT and self.hero.live == True:
+            if event.type == HERO_FIRE_EVENT:
                 self.hero.fire()
-            if event.type == CREATE_ENEMY_EVENT  and self.hero.live == True:
+            if event.type == CREATE_ENEMY_EVENT:
                 self.enemy = Enemy()
                 self.enemy_group.add(self.enemy)
               
@@ -53,47 +51,24 @@ class MainWindow():
                     self.hero.speed = -2
                 if event.key == pygame.K_RIGHT:
                     self.hero.speed = 2
-                # after hero died, press 'r', will restart the game
-                if self.hero.live == False and event.unicode == 'r':
-                    self.__init__()
             elif event.type == pygame.KEYUP:
                 self.hero.speed = 0
 
-    def __update_sprite(self):
-        self.bg_group.update()
-        self.bg_group.draw(self.screen)
-        self.hero_group.update()
-        self.hero_group.draw(self.screen)
-        self.enemy_group.update()
-        self.enemy_group.draw(self.screen)
-        self.hero.bullet_group.update()
-        self.hero.bullet_group.draw(self.screen)
-
-    def __check_collide(self):
-
-        for enemy_plane in self.enemy_group:
-            for current_bullet in self.hero.bullet_group:
-                if pygame.Rect.colliderect(current_bullet.rect, enemy_plane.rect):
-                    current_bullet.kill()
-                    enemy_plane.collide = True
-            if not enemy_plane.collide :
-                if pygame.Rect.colliderect(self.hero.rect, enemy_plane.rect):
-                    self.hero.live = False
-                    # self.enemy_group.empty()
-                    self.hero.died()
-
-    def __gameover(self):
-        pass
-
     def start_game(self):
         while True:
-            self.fclock.tick(self.fps)
             self.__event_handler()
-            self.__update_sprite()
-            self.__check_collide()
+
+
+            self.bg_group.update()
+            self.bg_group.draw(self.screen)
+            self.hero_group.update()
+            self.hero_group.draw(self.screen)
+            self.enemy_group.update()
+            self.enemy_group.draw(self.screen)
+            self.hero.bullet_group.update()
+            self.hero.bullet_group.draw(self.screen)
             pygame.display.update()
-            
-            # print(f'enemies:{len(self.enemy_group)}')
+            self.fclock.tick(self.fps)
 
 if __name__ == '__main__':
     game = MainWindow()

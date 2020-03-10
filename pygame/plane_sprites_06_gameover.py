@@ -4,6 +4,7 @@ import random
 SCREEN_RECT = pygame.Rect(0, 0, 480, 700)
 CREATE_ENEMY_EVENT = pygame.USEREVENT
 HERO_FIRE_EVENT = pygame.USEREVENT + 1
+score = 0
 class GameSprite(pygame.sprite.Sprite):
     """ plane game sprites"""
     def __init__(self,image_name,speed=1):
@@ -28,6 +29,7 @@ class Hero(GameSprite):
         self.i = 1
         self.j = 1
         self.max = 50
+        self.score_hero = 0
 
     def update(self):
         if self.rect.right > SCREEN_RECT.width:
@@ -64,6 +66,8 @@ class Hero(GameSprite):
             self.image = pygame.image.load('images\\plane_images\\me_destroy_4.png')
         self.j += 1
         if self.j > self.max:
+            global score
+            self.score_hero = score
             self.kill()
             print('hero killed')
 
@@ -126,7 +130,10 @@ class Enemy(GameSprite):
         self.i += 1
         if self.i > self.max:
             self.kill()
+            global score 
+            score += 1
             print('kill')
+            print(score)
 
 
 

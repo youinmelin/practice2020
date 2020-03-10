@@ -51,7 +51,7 @@ class MainWindow():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     self.hero.speed = -2
-                elif event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_RIGHT:
                     self.hero.speed = 2
                 # after hero died, press 'r', will restart the game
                 if self.hero.live == False and event.unicode == 'r':
@@ -81,8 +81,6 @@ class MainWindow():
             for current_bullet in self.hero.bullet_group:
                 if pygame.Rect.colliderect(current_bullet.rect, enemy_plane.rect):
                     current_bullet.kill()
-                    if enemy_plane.collide != True:
-                        self.score += 1
                     enemy_plane.collide = True
             if not enemy_plane.collide :
                 if pygame.Rect.colliderect(self.hero.rect, enemy_plane.rect):
@@ -93,7 +91,7 @@ class MainWindow():
                 self.hero.live = False
 
     def show_score(self):
-        score_str = f'score {self.score}'
+        score_str = f'score {self.hero.score_hero}'
         scorefont = pygame.font.Font(None, 30)
         scorefont_surf = scorefont.render(score_str,True, (0,0,0))
         self.screen.blit(scorefont_surf, (0,0))
@@ -101,7 +99,7 @@ class MainWindow():
     def __gameover(self):
         gameover_str = 'GAME OVER'
         tip_str = 'Press ESC to quit. Press r to restart.'
-        # tip_str = f'score {self.score}'
+        tip_str = f'score {self.hero.score_hero}'
         bigfont = pygame.font.Font(None, 30)
         bigfont_surf = bigfont.render(gameover_str,True, (0,0,0))
         smallfont = pygame.font.Font(None, 30)
@@ -115,7 +113,7 @@ class MainWindow():
             self.__event_handler()
             self.__update_sprite()
             self.__check_collide()
-            self.show_score()
+            # self.show_score()
             pygame.display.update()
             
             # print(f'enemies:{len(self.enemy_group)}')

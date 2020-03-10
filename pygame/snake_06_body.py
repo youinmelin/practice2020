@@ -1,4 +1,8 @@
 # snake_06 realized the snake body function basically. 1.become longer 2.turn direction controlled by keys 3.body's blocks follow the previous block. Use the function of shallow copy
+# snake_07 expected: edge control
+# snake_08 expected: collide detect
+# snake_09 expected: eat and grow
+
 import pygame
 import sys
 import copy
@@ -30,15 +34,15 @@ class MainWindow():
         pygame.display.set_caption(title_name)
         self.direction = 'right'
         self.snake_size = 10
-        # build a list, every block of the snake is in the list
+        # build a list, every block of the snake is in the list. In this list,each item will be [ the object of the snake head or body, the rect object].
         self.snake_list = []
-        self.__creat_snake()
+        self.__creat_snake(self.snake_size+1)
 
-    def __creat_snake(self, speed = 10):
+    def __creat_snake(self, speed = 11):
         if not self.snake_list :
             self.head = Head(self.screen, [0,0,self.snake_size,self.snake_size],speed)
             self.snake_list.append((self.head, self.head.rect))
-        elif len(self.snake_list) >= 1:
+        else:
             # print(self.snake_list[-1].rect)
             self.snake_body = Snake(self.screen,self.snake_list[-1][1]) 
             self.snake_list.append((self.snake_body, self.snake_body.rect))
@@ -73,13 +77,13 @@ class MainWindow():
                     pygame.quit()
                     sys.exit()
                 # get the direction, from the key event
-                elif event.key == pygame.K_LEFT:
+                elif event.key == pygame.K_LEFT and self.direction != 'right':
                     self.direction = 'left'
-                elif event.key == pygame.K_RIGHT:
+                elif event.key == pygame.K_RIGHT and self.direction != 'left':
                     self.direction = 'right'
-                elif event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP and self.direction != 'down':
                     self.direction = 'up'
-                elif event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_DOWN and self.direction != 'up':
                     self.direction = 'down'
                 elif event.unicode:
                     if event.unicode == 'a':

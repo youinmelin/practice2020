@@ -76,19 +76,23 @@ class MainWindow():
                     print ('BYE-BYE')
                     pygame.quit()
                     sys.exit()
-                # get the direction, from the key event
-                elif event.key == pygame.K_LEFT:
+                # get the direction from the key event, cann't turn back directly.
+                elif event.key == pygame.K_LEFT and self.direction != 'right':
                     self.direction = 'left'
-                elif event.key == pygame.K_RIGHT:
+                elif event.key == pygame.K_RIGHT and self.direction != 'left':
                     self.direction = 'right'
-                elif event.key == pygame.K_UP:
+                elif event.key == pygame.K_UP and self.direction != 'down':
                     self.direction = 'up'
-                elif event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_DOWN and self.direction != 'up':
                     self.direction = 'down'
                 elif event.unicode:
+                    # some shortcut keys. a:longer, f:fast, s:slow
                     if event.unicode == 'a':
                         self.__add_snake()
-
+                    if event.unicode == 'f' and self.fps < 30:
+                        self.fps += 2
+                    if event.unicode == 's' and self.fps > 2:
+                        self.fps -= 2
 
     def start_game(self):
         while True:

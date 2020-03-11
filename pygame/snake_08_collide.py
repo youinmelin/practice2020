@@ -6,7 +6,6 @@
 import pygame
 import sys
 import copy
-import random
 
 SCREEN_RECT = pygame.Rect(0, 0, 500, 500)
 
@@ -40,9 +39,6 @@ class MainWindow():
         self.collide = False
         self.__creat_snake(self.snake_size+1)
         self.score = 0
-        self.eaten = False
-        self.food_x = random.randint(0,50)*(self.snake_size+1)
-        self.food_y = random.randint(0,50)*(self.snake_size+1)
 
     def __creat_snake(self, speed = 11):
         if not self.snake_list :
@@ -97,17 +93,6 @@ class MainWindow():
         self.score += 1
         self.__creat_snake()
 
-    def __food(self):
-        if self.eaten:
-            self.food_x = random.randint(0,49)*(self.snake_size+1)
-            self.food_y = random.randint(0,49)*(self.snake_size+1)
-            self.eaten = False
-        food_rect = pygame.draw.rect(self.screen,self.color_list[2],(self.food_x,self.food_y,self.snake_size,self.snake_size))
-        food_collide = pygame.Rect.colliderect(self.head.rect, food_rect)
-        if food_collide:
-            self.__add_snake()
-            self.eaten = True
-
     def __event_handler(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -160,7 +145,6 @@ class MainWindow():
             elif self.collide:
                 self.__gameover()
             self.__edge_detect()
-            self.__food()
             pygame.display.update()
 
 class Snake():

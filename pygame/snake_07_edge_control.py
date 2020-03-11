@@ -6,7 +6,6 @@
 import pygame
 import sys
 import copy
-import random
 
 SCREEN_RECT = pygame.Rect(0, 0, 500, 500)
 
@@ -37,12 +36,8 @@ class MainWindow():
         self.snake_size = 9
         # build a list, every block of the snake is in the list. In this list,each item will be [ the object of the snake head or body, the rect object].
         self.snake_list = []
-        self.collide = False
         self.__creat_snake(self.snake_size+1)
         self.score = 0
-        self.eaten = False
-        self.food_x = random.randint(0,50)*(self.snake_size+1)
-        self.food_y = random.randint(0,50)*(self.snake_size+1)
 
     def __creat_snake(self, speed = 11):
         if not self.snake_list :
@@ -62,51 +57,29 @@ class MainWindow():
             else:
                 print('move body',e)
                 rect_pre = self.snake_list[e-1][0].rect_pre
-                print('---------------',rect_pre,self.collide)
+                print('---------------',rect_pre)
                 snake.update(self.direction,rect_pre)
-
-    def __collide(self):
-        if len(self.snake_list) > 1: 
-            c = 0
-            for snake,rect in self.snake_list:
-                self.collide = pygame.Rect.colliderect(self.head.rect, snake.rect)
-                print(self.collide)
-                # head always collides the 1st body, so if collide twice(c = 2), game over.
-                c = c + self.collide
-                if c > 1:
-                    break    
                 
+
     def __edge_detect(self):
         if type(self.head.rect) is not list:
-            self.__collide()
             if self.head.rect.right >= SCREEN_RECT.width and self.direction == 'right':
                 print('over')
-                self.collide = True
+                self.__gameover()
             if self.head.rect.left <= 0 and self.direction == 'left':
                 print('over')
-                self.collide = True
+                self.__gameover()
             if self.head.rect.top <= 0 and self.direction == 'up':
                 print('over')
-                self.collide = True
+                self.__gameover()
             if self.head.rect.bottom >= SCREEN_RECT.height and self.direction == 'down':
                 print('over')
-                self.collide = True
+                self.__gameover()
 
     def __add_snake(self):
         print('add')
         self.score += 1
         self.__creat_snake()
-
-    def __food(self):
-        if self.eaten:
-            self.food_x = random.randint(0,49)*(self.snake_size+1)
-            self.food_y = random.randint(0,49)*(self.snake_size+1)
-            self.eaten = False
-        food_rect = pygame.draw.rect(self.screen,self.color_list[2],(self.food_x,self.food_y,self.snake_size,self.snake_size))
-        food_collide = pygame.Rect.colliderect(self.head.rect, food_rect)
-        if food_collide:
-            self.__add_snake()
-            self.eaten = True
 
     def __event_handler(self):
         for event in pygame.event.get():
@@ -155,12 +128,8 @@ class MainWindow():
             self.fclock.tick(self.fps)
             self.__event_handler()
             self.screen.fill(self.color_list[0])
-            if not self.collide:
-                self.__update_snake()
-            elif self.collide:
-                self.__gameover()
             self.__edge_detect()
-            self.__food()
+            self.__update_snake()
             pygame.display.update()
 
 class Snake():

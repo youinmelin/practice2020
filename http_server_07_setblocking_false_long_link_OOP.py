@@ -1,12 +1,13 @@
 # 非堵塞方式单进程线程实现并发方法,并实现长链接
 # 修改为面向对象方式
+# In browser, input '192.168.0.XX:7890' 
 import re
 import socket
 import time
 
 class HttpServer():
     # 功能：接收客户端发来的请求信息，传递给框架，并接收框架处理好的信息，传递给客户端。
-    # 此类提供http服务器功能，仅仅负责接收发送数据，不处理数据。数据处理功能通过传递参数交给框架类处理
+    # 此类提供http服务器功能，仅仅负责接建立连接收发送数据，不处理数据。数据处理功能通过传递参数交给框架类处理
     def __init__(self,handle_client):
         self.recv_data_from_client = '' 
         self.recv_data_from_frame = ''

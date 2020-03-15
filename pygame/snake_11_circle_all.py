@@ -65,8 +65,9 @@ class MainWindow():
                 # this snake is a head object
                 snake.update(self.direction,'useless rect')
             else:
+                print('move body',e)
                 rect_pre = self.snake_list[e-1][0].rect_pre
-                print('move body',e,rect_pre,self.collide)
+                # print('---------------',rect_pre,self.collide)
                 # this snake is a body object
                 snake.update(self.direction,rect_pre)
 
@@ -146,7 +147,7 @@ class MainWindow():
     def show_score(self):
         score_str = f'score {self.score}'
         scorefont = pygame.font.Font(None, 25)
-        scorefont_surf = scorefont.render(score_str,True, (255,255,255))
+        scorefont_surf = scorefont.render(score_str,True, (0,255,0))
         self.screen.blit(scorefont_surf, (0,0))
 
     def __gameover(self):
@@ -185,7 +186,7 @@ class MainWindow():
 
 class Snake():
     def __init__(self, screen, rect):
-        self.color = 0, 255, 0
+        self.color = 255, 255, 255
         self.rect = rect
         self.rect_pre = rect 
         self.screen = screen
@@ -220,6 +221,8 @@ class Head(Snake):
         elif direction == 'up':
             print('up')
             self.rect.y = self.rect.y - self.speed
+            print(f'{self.rect.y} - {self.speed}')
+            print(f'{self.rect.y} ')
         elif direction == 'down':
             print('down')
             self.rect.y += self.speed

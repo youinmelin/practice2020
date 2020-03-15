@@ -6,8 +6,9 @@
 import pygame
 import sys
 import copy
+import random
 
-SCREEN_RECT = pygame.Rect(0, 0, 500, 500)
+SCREEN_RECT = pygame.Rect(0, 0, 200, 200)
 
 class MainWindow():
     def __init__(self):
@@ -39,10 +40,14 @@ class MainWindow():
         self.collide = False
         self.__creat_snake(self.snake_size+1)
         self.score = 0
+        self.eaten = False
+        self.food_x = random.randint(0,SCREEN_RECT.width/10-1)*(self.snake_size+1)
+        self.food_y = random.randint(0,SCREEN_RECT.width/10-1)*(self.snake_size+1)
 
     def __creat_snake(self, speed = 11):
         if not self.snake_list :
-            self.head = Head(self.screen, [0,0,self.snake_size,self.snake_size],speed)
+            head_rect = pygame.Rect(0,0,self.snake_size,self.snake_size)
+            self.head = Head(self.screen, head_rect, speed)
             self.snake_list.append((self.head, self.head.rect))
         else:
             # print(self.snake_list[-1].rect)
@@ -73,25 +78,35 @@ class MainWindow():
                     break    
                 
     def __edge_detect(self):
-        if type(self.head.rect) is not list:
-            self.__collide()
-            if self.head.rect.right >= SCREEN_RECT.width and self.direction == 'right':
-                print('over')
-                self.collide = True
-            if self.head.rect.left <= 0 and self.direction == 'left':
-                print('over')
-                self.collide = True
-            if self.head.rect.top <= 0 and self.direction == 'up':
-                print('over')
-                self.collide = True
-            if self.head.rect.bottom >= SCREEN_RECT.height and self.direction == 'down':
-                print('over')
-                self.collide = True
+        self.__collide()
+        if self.head.rect.right >= SCREEN_RECT.width and self.direction == 'right':
+            print('over')
+            self.collide = True
+        elif self.head.rect.left <= 0 and self.direction == 'left':
+            print('over')
+            self.collide = True
+        elif self.head.rect.top <= 0 and self.direction == 'up':
+            print('over')
+            self.collide = True
+        elif self.head.rect.bottom >= SCREEN_RECT.height and self.direction == 'down':
+            print('over')
+            self.collide = True
 
     def __add_snake(self):
         print('add')
         self.score += 1
         self.__creat_snake()
+
+    def __food(self):
+        if self.eaten:
+            self.food_x = random.randint(0,SCREEN_RECT.width/10-1)*(self.snake_size+1)
+            self.food_y = random.randint(0,SCREEN_RECT.width/10-1)*(self.snake_size+1)
+            self.eaten = False
+        food_rect = pygame.draw.rect(self.screen,self.color_list[2],(self.food_x,self.food_y,self.snake_size,self.snake_size))
+        food_collide = pygame.Rect.colliderect(self.head.rect, food_rect)
+        if food_collide:
+            self.__add_snake()
+            self.eaten = True
 
     def __event_handler(self):
         for event in pygame.event.get():
@@ -129,6 +144,7 @@ class MainWindow():
         tip_str = 'Press ESC to quit. Press r to restart.'
         tip_str = f'score {self.score}'
         bigfont = pygame.font.Font(None, 30)
+        print(dir(bigfont))
         bigfont_surf = bigfont.render(gameover_str,True, (255,0,0))
         smallfont = pygame.font.Font(None, 30)
         smallfont_surf = bigfont.render(tip_str,True, (255,0,0))
@@ -145,6 +161,7 @@ class MainWindow():
             elif self.collide:
                 self.__gameover()
             self.__edge_detect()
+            self.__food()
             pygame.display.update()
 
 class Snake():
@@ -175,13 +192,13 @@ class Head(Snake):
         self.rect_pre = copy.copy(self.rect)
         # print (id(self.rect_pre),id( self.rect))
         if direction == 'left':
-            self.rect[0] -= self.speed
+            self.rect.x -= self.speed
         elif direction == 'right':
-            self.rect[0] += self.speed
+            self.rect.x += self.speed
         elif direction == 'up':
-            self.rect[1] -= self.speed
+            self.rect.y -= self.speed
         elif direction == 'down':
-            self.rect[1] += self.speed
+            self.rect.y += self.speed
         snake_rect = pygame.draw.rect(self.screen, self.color, self.rect)
         self.rect = snake_rect
         print (snake_rect, self.rect)

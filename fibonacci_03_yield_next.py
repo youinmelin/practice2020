@@ -10,7 +10,7 @@ def fibonacci(num):
         n1, n2 = n2, n1 + n2
     return 'finished'
 
-fi = fibonacci(10)
+fi = fibonacci(20)
 while True:
     try:
         ret = next(fi)

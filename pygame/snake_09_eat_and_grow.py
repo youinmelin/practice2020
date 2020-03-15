@@ -1,8 +1,7 @@
-# snake_06 completed the snake body function basically. 1.become longer 2.turn direction controlled by keys 3.body's blocks follow the previous block. Use the function of shallow copy
+# snake_06 realized the snake body function basically. 1.become longer 2.turn direction controlled by keys 3.body's blocks follow the previous block. Use the function of shallow copy
 # snake_07 expected: edge control
 # snake_08 expected: collide detect
 # snake_09 expected: eat and grow
-# snake_10 expected: snake blocks and food are circle
 
 import pygame
 import sys
@@ -22,7 +21,7 @@ class MainWindow():
         BLUE = 0, 0, 255
         YELLOW = pygame.Color('yellow')
         self.color_list = [BLACK, WHITE, GOLD, RED, GREEN, BLUE, YELLOW]
-        self.fps = 3
+        self.fps = 1
         self.fclock = pygame.time.Clock()
 
         title_name = 'SNAKE'
@@ -35,15 +34,15 @@ class MainWindow():
         # Set title
         pygame.display.set_caption(title_name)
         self.direction = 'right'
-        self.snake_size = 10
+        self.snake_size = 9
         # build a list, every block of the snake is in the list. In this list,each item will be [ the object of the snake head or body, the rect object].
         self.snake_list = []
         self.collide = False
-        self.__create_snake(self.snake_size) # argument is the number of speed
+        self.__create_snake(self.snake_size+1)
         self.score = 0
         self.eaten = False
-        self.food_x = random.randint(0,SCREEN_RECT.width/10-1)*(self.snake_size)
-        self.food_y = random.randint(0,SCREEN_RECT.width/10-1)*(self.snake_size)
+        self.food_x = random.randint(0,SCREEN_RECT.width/10-1)*(self.snake_size+1)
+        self.food_y = random.randint(0,SCREEN_RECT.width/10-1)*(self.snake_size+1)
 
     def __create_snake(self, speed = 11):
         # create head
@@ -65,8 +64,9 @@ class MainWindow():
                 # this snake is a head object
                 snake.update(self.direction,'useless rect')
             else:
+                print('move body',e)
                 rect_pre = self.snake_list[e-1][0].rect_pre
-                print('move body',e,rect_pre,self.collide)
+                # print('---------------',rect_pre,self.collide)
                 # this snake is a body object
                 snake.update(self.direction,rect_pre)
 
@@ -100,13 +100,10 @@ class MainWindow():
 
     def __food(self):
         if self.eaten:
-            self.food_x = random.randint(0,SCREEN_RECT.width/10-1)*(self.snake_size)
-            self.food_y = random.randint(0,SCREEN_RECT.width/10-1)*(self.snake_size)
+            self.food_x = random.randint(0,SCREEN_RECT.width/10-1)*(self.snake_size+1)
+            self.food_y = random.randint(0,SCREEN_RECT.width/10-1)*(self.snake_size+1)
             self.eaten = False
-        # food_rect = pygame.draw.rect(self.screen,self.color_list[2],(self.food_x,self.food_y,self.snake_size,self.snake_size))
-        # food is a circle
-        food_pos_rect = pygame.Rect(self.food_x + int(self.snake_size/2),self.food_y + int(self.snake_size/2),self.snake_size,self.snake_size)
-        food_rect = pygame.draw.circle(self.screen,self.color_list[2],(food_pos_rect.x,food_pos_rect.y),int(self.snake_size/2))
+        food_rect = pygame.draw.rect(self.screen,self.color_list[2],(self.food_x,self.food_y,self.snake_size,self.snake_size))
         food_collide = pygame.Rect.colliderect(self.head.rect, food_rect)
         if food_collide:
             self.__add_snake()
@@ -145,8 +142,8 @@ class MainWindow():
 
     def show_score(self):
         score_str = f'score {self.score}'
-        scorefont = pygame.font.Font(None, 25)
-        scorefont_surf = scorefont.render(score_str,True, (255,255,255))
+        scorefont = pygame.font.Font(None, 20)
+        scorefont_surf = scorefont.render(score_str,True, (0,255,0))
         self.screen.blit(scorefont_surf, (0,0))
 
     def __gameover(self):
@@ -185,7 +182,7 @@ class MainWindow():
 
 class Snake():
     def __init__(self, screen, rect):
-        self.color = 0, 255, 0
+        self.color = 255, 255, 255
         self.rect = rect
         self.rect_pre = rect 
         self.screen = screen
@@ -194,8 +191,7 @@ class Snake():
         # Use the function of shallow copy to make sure self.rect_pre don't change with self.rect
         self.rect_pre = copy.copy(self.rect)
         self.rect = rect
-        # snake_rect = pygame.draw.rect(self.screen, self.color, self.rect)
-        snake_rect = pygame.draw.circle(self.screen, self.color, self.rect.center,int(self.rect.width/2))
+        snake_rect = pygame.draw.rect(self.screen, self.color, self.rect)
         self.rect = snake_rect
         # print (snake_rect, self.rect)
         return snake_rect 
@@ -220,11 +216,12 @@ class Head(Snake):
         elif direction == 'up':
             print('up')
             self.rect.y = self.rect.y - self.speed
+            print(f'{self.rect.y} - {self.speed}')
+            print(f'{self.rect.y} ')
         elif direction == 'down':
             print('down')
             self.rect.y += self.speed
-        # snake_rect = pygame.draw.rect(self.screen, self.color, self.rect)
-        snake_rect = pygame.draw.circle(self.screen, self.color, self.rect.center,int(self.rect.width/2))
+        snake_rect = pygame.draw.rect(self.screen, self.color, self.rect)
         # print (snake_rect)
 
 

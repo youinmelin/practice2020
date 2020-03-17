@@ -1,6 +1,5 @@
 import pygame
 import sys
-import math
 
 SCREEN_RECT = pygame.Rect(0, 0, 500, 500)
 
@@ -15,7 +14,7 @@ class MainWindow():
         BLUE = 0, 0, 255
         YELLOW = pygame.Color('yellow')
         self.color_list = [BLACK, WHITE, GOLD, RED, GREEN, BLUE, YELLOW]
-        self.fps = 1
+        self.fps = 10
         self.fclock = pygame.time.Clock()
 
         title_name = 'new pygame'
@@ -59,12 +58,12 @@ class MainWindow():
         if self.size[0] > 120 or self.size[0] < 80: 
             self.grow *= -1
         self.size[0] += self.grow
-        # print(self.size)
+        print(self.size)
         clock2.flower_stretch(self.size)
         clock2.draw_flower()
 
     def rotate(self):
-        self.angle += 1
+        self.angle += 6
         self.clock.flower_rotate(self.angle)
         self.clock.draw_flower()
 
@@ -82,7 +81,6 @@ class Clock():
         self.flower_rotate(0)
         self.flower_stretch(self.image_rect.size)
         # self.image_rect.move(self.topright)
-
     def draw_flower(self):
         self.screen.blit(self.image_changed,self.image_changed_rect)
         pygame.draw.circle(self.screen,(0,255,0),self.image_changed_rect.topright,5)
@@ -93,10 +91,6 @@ class Clock():
         # create a new variable to save image rotated
         self.image_changed = pygame.transform.rotate(self.image, angle)
         self.image_changed_rect = self.image_changed.get_rect(center = self.topright)
-        # count the topright point of the picture
-        self.point_topright = (int(self.image_changed_rect.topright[0] - self.image_changed_rect.height * math.sin(angle*math.pi/180)),self.image_changed_rect.y)
-        pygame.draw.circle(self.screen,(0,255,200),self.point_topright,5)
-        print(self.point_topright,angle)
 
     def flower_stretch(self,size):
         self.image_changed = pygame.transform.scale(self.image,size)

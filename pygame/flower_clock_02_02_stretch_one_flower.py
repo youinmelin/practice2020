@@ -55,7 +55,8 @@ class MainWindow():
             #self.stretch(self.clock2)
             for f in self.flist:
                 self.stretch(f)
-            # self.rotate()
+            self.rotate()
+            self.flist[2].draw_flower()
             pygame.display.update()
 
     def stretch(self,obj):
@@ -80,6 +81,7 @@ class Clock():
         self.image = pygame.image.load(image_name)
         self.image_rect = self.image.get_rect()
         self.image_rect.topright= topright
+        self.flower_rotate(0)
         self.flower_stretch(self.image_rect.size)
         # self.image_rect.move(self.topright)
     def draw_flower(self):

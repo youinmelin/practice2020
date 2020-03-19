@@ -16,7 +16,7 @@ class MainWindow():
         BLUE = 0, 0, 255
         YELLOW = pygame.Color('yellow')
         self.color_list = [BLACK, WHITE, GOLD, RED, GREEN, BLUE, YELLOW]
-        self.fps = 30
+        self.fps = 1
         self.fclock = pygame.time.Clock()
 
         title_name = 'clock'
@@ -24,7 +24,7 @@ class MainWindow():
 
         # Create a window
         self.screen = pygame.display.set_mode((SCREEN_RECT.width, SCREEN_RECT.height))
-        self.screen.fill(self.color_list[1])
+        self.screen.fill(self.color_list[0])
         pygame.display.update()
         # Set title
         pygame.display.set_caption(title_name)
@@ -63,8 +63,8 @@ class MainWindow():
         self.flower_group = pygame.sprite.Group()
         # create_dial_plate
         for i in range(self.flowers_num):
-            self.angle = 0 if self.angle>=360 else self.angle
-            self.angle += int(360/self.flowers_num)
+            self.angle += 360/self.flowers_num
+            # self.angle = 0 if self.angle>=360 else self.angle
             flower_sprite =  Clock(self.screen,(self.start_point_x,self.start_point_y),self.size,self.angle)
             # draw lines to guide the pictures
             self.start_point_x,self.start_point_y = self.line(self.size[1],self.start_point_x,self.start_point_y,self.angle)
@@ -80,19 +80,17 @@ class MainWindow():
         return x2,y2
 
     def stretch(self):
-        self.count = 0 if self.count >= self.flowers_num else self.count
+        for f in self.flist:
+            if f.is_stretch:
+                pass
+            else:
+                self.count += 1
+                self.count = 0 if self.count >= 60 else self.count
         #self.flist[self.count].is_stretch = True if i == 0 else False
-        self.flist[self.count].is_stretch = 2
-        pre = self.count - 1 if self.count >= 0 else self.flowers_num - 1
-        self.flist[pre].is_stretch = 1
-        aft = self.count + 1 if self.count < self.flowers_num-1 else 0
-        self.flist[aft].is_stretch = 3
-        pre2 = self.count - 2 if self.count > 1 else self.flowers_num + self.count-2
-        self.flist[pre2].is_stretch = 0
-        self.count += 1
+        self.flist[self.count].is_stretch = True
 
 class Clock(pygame.sprite.Sprite):
-    def __init__(self,screen,pointA, image_size,angle,is_stretch = 0):
+    def __init__(self,screen,pointA, image_size,angle,is_stretch = False):
         super().__init__()
         self.screen = screen
         self.angle_degree = angle
@@ -110,11 +108,13 @@ class Clock(pygame.sprite.Sprite):
 
         # anticlockwise ( not clockwise )
         # create a new variable to save image rotated
-        self.flower_stretch()
         self.image_changed = pygame.transform.rotozoom(self.image, self.angle_degree,1)
         self.image_changed_rect = self.image_changed.get_rect(topleft= self.rect_new.topleft)
         self.screen.blit(self.image_changed,self.image_changed_rect)
         # print('rotate',self.angle_degree,'rect',self.image_changed_rect )
+        self.i += 1
+        if self.is_stretch:
+            self.flower_stretch()
 
     def count_rect(self,pointAx,pointAy,angle_degree,w = 89, h = 30):
         ''' give pointA(image's topright point) and angle, count the rect of the surface '''
@@ -139,22 +139,24 @@ class Clock(pygame.sprite.Sprite):
         
     def flower_stretch(self):
         action_num = 4
+        print(self.i)
         def change(image_name):
             self.image = pygame.image.load(image_name)
             w,h = self.image.get_rect().width,self.image.get_rect().height
             self.rect_new = self.count_rect(self.pointAx,self.pointAy,self.angle_degree,w,h)
-        if self.is_stretch == 0:
+        if self.i%action_num == 0:
             image_name = 'images\\clock\\clock_flower1.jpg'
             change(image_name)
-        elif self.is_stretch  == 1:
+        elif self.i%action_num == 1:
             image_name = 'images\\clock\\clock_flower2.jpg'
             change(image_name)
-        elif self.is_stretch  == 2:
+        elif self.i%action_num == 2:
             image_name = 'images\\clock\\clock_flower3.jpg'
             change(image_name)
-        elif self.is_stretch  == 3:
+        elif self.i%action_num == 3:
             image_name = 'images\\clock\\clock_flower2.jpg'
             change(image_name)
+            self.is_stretch = False
 
 if __name__ == '__main__':
     game = MainWindow()

@@ -55,6 +55,7 @@ class MainWindow():
             self.__event_handler()
             self.fclock.tick(self.fps)
             self.screen.fill(self.color_list[1])
+            self.create_dial_plate()
             self.stretch()
             self.flower_group.update()
             pygame.display.update()
@@ -78,6 +79,15 @@ class MainWindow():
         y2 = y + length*(sin((90-angle_a) * pi/180))
         pygame.draw.line(self.screen,color,(x,y),(x2,y2),7)
         return x2,y2
+
+    def create_dial_plate(self):
+        dial_pic = 'images/clock/dial_plate.png'
+        self.dial_image = pygame.image.load(dial_pic)
+        self.dial_rect = self.dial_image.get_rect()
+        self.dial_rect.x = 125
+        self.dial_rect.y = 118 
+        self.screen.blit(self.dial_image,self.dial_rect)
+        pygame.draw.circle(self.screen,self.color_list[3],self.dial_rect.center,7)
 
     def stretch(self):
         self.count = 0 if self.count >= self.flowers_num else self.count

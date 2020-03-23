@@ -34,6 +34,11 @@ class MainWindow():
                 print ('BYE-BYE')
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    print ('BYE-BYE')
+                    pygame.quit()
+                    sys.exit()
 
     def start_game(self):
         while True:

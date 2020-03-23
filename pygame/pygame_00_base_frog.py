@@ -1,3 +1,4 @@
+# from pygame_00_base_frog import *
 import pygame
 import math
 import time
@@ -8,7 +9,7 @@ class Draw:
     
     def line(self,length,x=0,y=0,angle_a = 0,color=(255,0,0),st = 0):
         '''right:angle_a=0,top:angle_a=90,left:angle_a=180,bottom:angle_a=270 or -90
-            :return x2,y2
+            :return x2,y2 is the end of point
         '''
         angle_a += 90
         x2 = x + length*(math.sin(angle_a*math.pi/180))
@@ -19,6 +20,7 @@ class Draw:
         return x2,y2
 
     def circle(self,r,x,y,angle_a = 0,width =1,color=(0,0,0),st = 0,center = False):
+        ''' draw a circle'''
         angle_a += 90
         r = int(r)
         if r < width:
@@ -37,7 +39,9 @@ class Draw:
         time.sleep(st)
 
     def arc_e(self,r1,r2,x,y,angle_a,angle_b,width=1,color=(0,0,0),st = 0):
-        ''' r1:an ellipse's long side
+        ''' 
+            draw an ellipse
+            r1:an ellipse's long side
             r2:an ellipse's short side
             x,y:ellipse's rightmost point
             angle_a:arc's start angle,right->0,top->90,left->180,bottom->270

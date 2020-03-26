@@ -72,6 +72,7 @@ class MainWindow():
             self.create_dial_plate()
             self.stretch()
             self.flower_group.update()
+            # pygame.draw.line(self.screen,(225,0,0),self.flist[0].rect_new.topright,self.flist[int(self.flowers_num/2)-1].rect_new.bottomleft)
             pygame.display.update()
 
 

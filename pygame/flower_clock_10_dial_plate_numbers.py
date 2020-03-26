@@ -34,7 +34,10 @@ class MainWindow():
         self.flist = []
         self.start_point_x = 135
         self.start_point_y = 430
-        self.flowers_num = 60
+        self.flowers_num = 90
+        while 360 % self.flowers_num or self.flowers_num > 60:
+            self.flowers_num -= 1
+        print(self.flowers_num)
         self.create_sprites()
         self.count = 0
 
@@ -58,6 +61,7 @@ class MainWindow():
             self.create_dial_plate()
             self.stretch()
             self.flower_group.update()
+            # pygame.draw.line(self.screen,(225,0,0),self.flist[0].rect_new.topright,self.flist[int(self.flowers_num/2)-1].rect_new.bottomleft)
             pygame.display.update()
 
     def create_sprites(self):
@@ -69,12 +73,18 @@ class MainWindow():
             flower_sprite =  Clock(self.screen,(self.start_point_x,self.start_point_y),self.size,self.angle)
             # draw lines to guide the pictures
             self.start_point_x,self.start_point_y = self.line(self.size[1],self.start_point_x,self.start_point_y,self.angle)
-            self.flower_group.add(flower_sprite)
+            self.flower_group.add(flower_sprite) 
             self.flist.append(flower_sprite)
+        # print(flower_sprite.rect_new.x,flower_sprite.rect_new.y)
         # print(dir(self.flower_group))
+        print(self.flist[0].rect_new.topright,self.flist[int(self.flowers_num/2)-1].rect_new.bottomleft)
+        self.diameter = self.flist[int(self.flowers_num/2)-1].rect_new.bottomleft[0] - self.flist[0].rect_new.topright[0]
+        self.centerx = self.diameter / 2 + self.flist[0].rect_new.topright[0]
+        self.centery = self.flist[0].rect_new.top - self.size[1]/2
+        print('center point',self.centerx,self.centery)
 
 
-    def line(self,length,x=0,y=0,angle_a = 270,color=(255,255,255)):
+    def line(self,length,x=0,y=0,angle_a = 270,color=(255,0,255)):
         x2 = x + length*(sin(angle_a * pi/180))
         y2 = y + length*(sin((90-angle_a) * pi/180))
         pygame.draw.line(self.screen,color,(x,y),(x2,y2),7)
@@ -83,10 +93,13 @@ class MainWindow():
     def create_dial_plate(self):
         dial_pic = 'images/clock/dial_plate.png'
         self.dial_image = pygame.image.load(dial_pic)
+        rate = self.diameter / 600
+        self.dial_image = pygame.transform.rotozoom(self.dial_image, 0 , rate)
         self.dial_rect = self.dial_image.get_rect()
-        self.dial_rect.x = 125
-        self.dial_rect.y = 118 
+        self.dial_rect.centerx = self.centerx 
+        self.dial_rect.centery = self.centery
         self.screen.blit(self.dial_image,self.dial_rect)
+        pygame.draw.circle(self.screen,self.color_list[3],self.dial_rect.center,7)
 
     def stretch(self):
         self.count = 0 if self.count >= self.flowers_num else self.count

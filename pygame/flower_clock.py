@@ -21,6 +21,7 @@ class MainWindow():
 
         title_name = 'clock'
         init_result = pygame.init()
+        print('init_result',init_result)
 
         # Create a window
         self.screen = pygame.display.set_mode((SCREEN_RECT.width, SCREEN_RECT.height))
@@ -40,9 +41,15 @@ class MainWindow():
         self.flowers_num = num
         while 360 % self.flowers_num or self.flowers_num > 60:
             self.flowers_num -= 1
+        # circumference
+        c = self.flowers_num * self.size[1]
+        # center point 421 415
+        self.start_point_x = int(421 - c/(2 * pi))
+        print(self.start_point_x)
         print(self.flowers_num)
         self.create_sprites()
         self.count = 0
+        
     def __event_handler(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

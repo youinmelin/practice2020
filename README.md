@@ -27,3 +27,10 @@
 * Lynda的课程正在学习Learning Linux Command Line, 已经学习了一多半了。
 * 同时还在学习JavaScript，一个国内的视频课程叫：传智39期WEB前端，JavaScript基础语法部分已经学完了，现在正在学DOM，之后还要学JS高级语法，node.js等等，这个前端课程内容真的很多，慢慢学吧。
 * 中国的疫情已经基本缓解了，每天全国本土的感染人数趋近于零，但是国外的疫情现在开始蔓延了，很多从国外回来的人都是带着病毒回来的。希望疫情快快结束。
+### 2020-3-28 Saturday BJ Sunday
+* JavaScript课程已经学完了WebAPI这部分了，主要包含DOM和BOM。现在进入到JavaScript高级课程。
+* Agile Testing Foundations 这本书在昨天全都看完了，对agile有了一定的了解，书最后还有个测试，下周把测试做完
+* Learning Linux Command Line 也在昨天学完了，基础的linux命令都学会了，但是还要继续深入学习下去。
+* 今天计划看 linux command line: fast and easy 这本书，继续深入学习Linux
+* google软件测试之道 昨天开始看，预计3个礼拜能看完。
+* Lynda.com 上的 DevOps Foundations 课程也从今天开始学习。Lynda的课程已经学完了4门了，还得再买点课，否则要断顿了。

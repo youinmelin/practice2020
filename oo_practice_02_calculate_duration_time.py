@@ -29,7 +29,7 @@ class Time:
         return (duration_hours,duration_minutes,duration_seconds)
 
 if __name__ == '__main__':
-    start_time = Time(1,30,30)
-    end_time = Time (1,45,29)
+    start_time = Time(0,0,0)
+    end_time = Time (0,3,40)
     start_time.subtract_time(end_time)
 

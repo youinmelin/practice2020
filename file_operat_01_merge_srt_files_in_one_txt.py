@@ -1,4 +1,4 @@
-# Merge all the txt files where are in the subpath into one txt file. And save the new txt file in current path.
+# Merge all the txt files where are in the subdirectory into one txt file. And save the new txt file in current path.
 
 import os
 walk_files = os.walk('.')

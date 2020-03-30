@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <h1>topic</h1> 
+   <input type="button" id="btn" value="show">
+   <input type="button" id="btn2" value="show2">
+   <div id="box">
+
+   </div>
+   <div id="box2"></div>
+   <div class="careers-slide slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 1903px;" tabindex="0">
+    <img src="https://www.spacex.com/sites/all/themes/spacex2012/images/dragon/slideshow/Dragon_Carousel_0001_8.jpg" alt="">
+  </div>
+   <script>
+       var btn = document.querySelector('#btn')
+       btn.onclick = function(){
+            // create element p
+            var p = document.createElement('p')
+            console.log(p)
+            // modify element's attribute
+            p.innerHTML = 'created me'
+            p.style.color = 'red'
+            // put element p into DOM TREE
+            var box = document.querySelector('#box')
+            box.appendChild(p)
+       }
+       var datas=['xishi','diaochan','fengjie','furongjiejie']
+       var btn2 = document.querySelector('#btn2')
+       btn2.onclick = function(){
+           var ul = document.createElement('ul')
+            var box2 = document.querySelector('#box2')
+            box2.appendChild(ul)
+            for (var i=0;i<datas.length;i++){
+                var li = document.createElement('li')
+                li.innerText = datas[i]
+                ul.appendChild(li)
+                //o鼠标悬停，高亮显示
+                li.onclick = liMouseOver
+                li.onclich = liMouseOut
+
+                }
+       }
+       function liMouseOver(){
+           this.style.backgroundColor = 'green'
+
+       }
+       function liMouseOut(){
+           this.style.backgroundColor = ''
+
+       }
+   </script>
+</body>
+</html>

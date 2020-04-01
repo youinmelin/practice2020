@@ -2,7 +2,7 @@ import pygame
 import sys
 from math import sin,cos,pi
 import random
-import datatime
+import datetime
 
 SCREEN_RECT = pygame.Rect(0, 0, 850, 850)
 
@@ -83,6 +83,7 @@ class MainWindow():
             self.create_dial_plate()
             self.stretch()
             self.flower_group.update()
+            self.clock_hand()
             pygame.display.update()
 
 
@@ -124,6 +125,23 @@ class MainWindow():
         self.screen.blit(self.dial_image,self.dial_rect)
         pygame.draw.circle(self.screen,self.color_list[3],self.dial_rect.center,7)
 
+    def clock_hand(self):
+        s = self.time_to_angle()['second']
+        m = self.time_to_angle()['minute']
+        h = self.time_to_angle()['hour']
+        print(h,m,s)
+
+    def time_to_angle(self):
+        ''' turn current time(0~59) to the number of angle(0~359) '''
+        ctime = datetime.datetime.now()
+        s = ctime.second
+        m = ctime.minute + s / 60
+        h = ctime.hour + m / 60
+        time_angle_dict = {'second': s * 60,
+                'minute': m * 60,
+                'hour': h * 60}
+        return time_angle_dict
+        
     def stretch(self):
         ''' stretch the flower to let it change width '''
         self.count = 0 if self.count >= self.flowers_num else self.count
@@ -181,16 +199,6 @@ class Clock(pygame.sprite.Sprite):
         rect = pygame.Rect(x1, y1, w, h)
         return rect
         
-    def time_to_angle(self):
-        ''' turn current time(0~59) to the number of angle(0~359) '''
-        ctime = datetime.datetime.now()
-        s = ctime.second
-        m = ctime.minute + s / 60
-        h = ctime.hour + m / 60
-        time_angle_dict = {second: s * 60,
-                minute: m * 60,
-                hour: h * 60}
-        return time_angle_dict
 
     def flower_stretch(self):
         action_num = 4

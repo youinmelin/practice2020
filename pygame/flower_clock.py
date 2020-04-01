@@ -107,11 +107,11 @@ class MainWindow():
         self.centery = self.flist[0].rect_new.top - self.size[1]/2
         print('center point',self.centerx,self.centery)
 
-    def line(self,length,x=0,y=0,angle_a = 270,color=(255,0,255)):
+    def line(self,length,x=0,y=0,angle_a = 270,color=(255,0,255),width = 0):
         ''' draw a polygon to guide the circle, x2,y2 are the last point in every line '''
         x2 = x + length*(sin(angle_a * pi/180))
         y2 = y + length*(sin((90-angle_a) * pi/180))
-        pygame.draw.line(self.screen,color,(x,y),(x2,y2),7)
+        pygame.draw.line(self.screen,color,(x,y),(x2,y2),width)
         return x2,y2
 
     def create_dial_plate(self):
@@ -126,22 +126,28 @@ class MainWindow():
         pygame.draw.circle(self.screen,self.color_list[3],self.dial_rect.center,7)
 
     def clock_hand(self):
-        s = self.time_to_angle()['second']
-        m = self.time_to_angle()['minute']
-        h = self.time_to_angle()['hour']
-        print(h,m,s)
+        length_s = self.diameter * 0.4
+        length_m = self.diameter * 0.3
+        length_h = self.diameter * 0.25
+        x = self.centerx
+        y = self.centery
+        width = 5
+        cur = datetime.datetime.now()
+        init_time = 180
+        print(cur.hour-12,cur.minute,cur.second)
+        angle_s = init_time + cur.second * -6
+        angle_m = init_time + cur.minute * -6
+        angle_h = init_time + (cur.hour - 12 + cur.minute / 60) * -30
+        print(angle_h,angle_m,angle_s)
+        width_s = 1
+        width_m = 3
+        width_h = 7
+        # screen.fill((0,0,0))
+        self.line(length_s,x,y,angle_s,color=(30,10,0),width = width_s)
+        self.line(length_m,x,y,angle_m,color=(30,10,0),width = width_m)
+        self.line(length_h,x,y,angle_h,color=(30,10,0),width = width_h)
+        # pygame.display.update()
 
-    def time_to_angle(self):
-        ''' turn current time(0~59) to the number of angle(0~359) '''
-        ctime = datetime.datetime.now()
-        s = ctime.second
-        m = ctime.minute + s / 60
-        h = ctime.hour + m / 60
-        time_angle_dict = {'second': s * 60,
-                'minute': m * 60,
-                'hour': h * 60}
-        return time_angle_dict
-        
     def stretch(self):
         ''' stretch the flower to let it change width '''
         self.count = 0 if self.count >= self.flowers_num else self.count

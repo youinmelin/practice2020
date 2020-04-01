@@ -7,7 +7,19 @@ class Draw:
     def __init__(self,surface):
         self.surface = surface
     
-    def line(self,length,x=0,y=0,angle_a = 0,color=(255,0,0),st = 0):
+    def line(self,length,x=0,y=0,angle_a = 0,color=(255,0,0),width = 0, st = 0):
+        '''right:angle_a=0,top:angle_a=90,left:angle_a=180,bottom:angle_a=270 or -90
+            :return x2,y2 is the end of point
+        '''
+        angle_a += 90
+        x2 = x + length*(math.sin(angle_a*math.pi/180))
+        y2 = y + length*(math.sin((90-angle_a)*math.pi/180))
+        pygame.draw.line(self.surface,color,(x,y),(x2,y2), width )
+        # pygame.display.update()
+        time.sleep(st)
+        return x2,y2
+
+    def aaline(self,length,x=0,y=0,angle_a = 0,color=(255,0,0),st = 0):
         '''right:angle_a=0,top:angle_a=90,left:angle_a=180,bottom:angle_a=270 or -90
             :return x2,y2 is the end of point
         '''

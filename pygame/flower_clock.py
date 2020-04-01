@@ -2,6 +2,7 @@ import pygame
 import sys
 from math import sin,cos,pi
 import random
+import datatime
 
 SCREEN_RECT = pygame.Rect(0, 0, 850, 850)
 
@@ -29,9 +30,11 @@ class MainWindow():
         pygame.display.update()
         # Set title
         pygame.display.set_caption(title_name)
+        # set parameters
         self.initial_set(60)
 
     def initial_set(self,num = 60):
+        ''' set initial parameters '''
         self.angle = 0
         # size[0]:width, size[1]:height
         self.size = [89, 30]
@@ -39,11 +42,12 @@ class MainWindow():
         self.start_point_x = 135
         self.start_point_y = 430
         self.flowers_num = num
+        # number of flowers must be divisible by 360 and less than 60
         while 360 % self.flowers_num or self.flowers_num > 60:
             self.flowers_num -= 1
-        # circumference
+        # c = circumference
         c = self.flowers_num * self.size[1]
-        # center point 421 415
+        # give center point 421 415, then count start_point
         self.start_point_x = int(421 - c/(2 * pi))
         print(self.start_point_x)
         print(self.flowers_num)
@@ -96,13 +100,14 @@ class MainWindow():
         # print(flower_sprite.rect_new.x,flower_sprite.rect_new.y)
         # print(dir(self.flower_group))
         print(self.flist[0].rect_new.topright,self.flist[int(self.flowers_num/2)-1].rect_new.bottomleft)
+        # count center point
         self.diameter = self.flist[int(self.flowers_num/2)-1].rect_new.bottomleft[0] - self.flist[0].rect_new.topright[0]
         self.centerx = self.diameter / 2 + self.flist[0].rect_new.topright[0]
         self.centery = self.flist[0].rect_new.top - self.size[1]/2
         print('center point',self.centerx,self.centery)
 
-
     def line(self,length,x=0,y=0,angle_a = 270,color=(255,0,255)):
+        ''' draw a polygon to guide the circle, x2,y2 are the last point in every line '''
         x2 = x + length*(sin(angle_a * pi/180))
         y2 = y + length*(sin((90-angle_a) * pi/180))
         pygame.draw.line(self.screen,color,(x,y),(x2,y2),7)
@@ -120,8 +125,8 @@ class MainWindow():
         pygame.draw.circle(self.screen,self.color_list[3],self.dial_rect.center,7)
 
     def stretch(self):
+        ''' stretch the flower to let it change width '''
         self.count = 0 if self.count >= self.flowers_num else self.count
-        #self.flist[self.count].is_stretch = True if i == 0 else False
         self.flist[self.count].is_stretch = 2
         pre = self.count - 1 if self.count >= 0 else self.flowers_num - 1
         self.flist[pre].is_stretch = 1
@@ -147,7 +152,6 @@ class Clock(pygame.sprite.Sprite):
         self.i = 0
 
     def update(self):
-
         # anticlockwise ( not clockwise )
         # create a new variable to save image rotated
         self.flower_stretch()
@@ -177,6 +181,17 @@ class Clock(pygame.sprite.Sprite):
         rect = pygame.Rect(x1, y1, w, h)
         return rect
         
+    def time_to_angle(self):
+        ''' turn current time(0~59) to the number of angle(0~359) '''
+        ctime = datetime.datetime.now()
+        s = ctime.second
+        m = ctime.minute + s / 60
+        h = ctime.hour + m / 60
+        time_angle_dict = {second: s * 60,
+                minute: m * 60,
+                hour: h * 60}
+        return time_angle_dict
+
     def flower_stretch(self):
         action_num = 4
         def change(image_name):

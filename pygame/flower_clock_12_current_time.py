@@ -133,11 +133,11 @@ class MainWindow():
         width = 5
         cur = datetime.datetime.now()
         init_time = 180
-        # print(cur.hour-12,cur.minute,cur.second)
+        print(cur.hour-12,cur.minute,cur.second)
         angle_s = init_time + cur.second * -6
         angle_m = init_time + cur.minute * -6
         angle_h = init_time + (cur.hour - 12 + cur.minute / 60) * -30
-        # print(angle_h,angle_m,angle_s)
+        print(angle_h,angle_m,angle_s)
         width_s = 2
         width_m = 5
         width_h = 7

@@ -34,3 +34,9 @@
 * 今天计划看 linux command line: fast and easy 这本书，继续深入学习Linux
 * google软件测试之道 昨天开始看，预计3个礼拜能看完。
 * Lynda.com 上的 DevOps Foundations 课程也从今天开始学习。Lynda的课程已经学完了5门了，还得再买点课，否则要断顿了。
+### 2020-4-14 Tuesday BJ Sunday
+* JavaScript高级已经学完了，还学完初级的jQuery 和 Node.js 和 PHP。
+* 把前端和PHP的技术组合应用，建了一个个人网站，还挺有意思。
+* 还在继续啃DevOps Foundations 课程, 这两个老师语速好快，能达到每分钟170词，听着很痛苦，但是也在坚持。
+* 用python编了一个钟表的程序，能够实现表盘的动画，缩放，看着很简单，但是用到了很多编程技巧和数学三角函数的知识。
+* 今天开始学习JAVA语言，之前一直犹豫，因为JAVA是一个大课程。比我之前学习的语言都要难，但是JAVA真的很有用，既然下了决心，就要奋力攻下他。

@@ -53,3 +53,5 @@
 * Beginning Git and GitHub 已经看了一多半了,一共289页,现在看到182页.现在学完了PR(pull request)和Code Reviews.这书讲的很详细,并且结合实际的工作流程.生词不多,还有点小幽默.
 * Java的学习时间严重挤压了devops的学习时间,加上devops难度实在有点大,继续攻坚吧.
 * 学习Java连接MySQL数据库的时候,涉及到jar包的问题.在win7系统下还好,在Linux纯文本下简直没法弄,jar包导不进去.害得我差点想放弃Linux改装Windows了,好在最后在图形界面下用vscode终于搞定,技能值又加强了.
+
+### 2020-6-7 

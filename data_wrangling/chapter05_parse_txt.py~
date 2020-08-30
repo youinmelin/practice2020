@@ -10,26 +10,27 @@ def read_txt(path, filename):
     openfile = open(path + filename,'r', encoding='UTF-8')
     # openfile = open(path + filename,'rb')
     country_line = total_line = False
-    country_list = total_list = []
+    country_list = []
+    total_list = []
+    previous_line = ''
     for i,line in enumerate(openfile):
         # only print country name
         if country_line :
-            line = clean_format(line)
-            print ('country:%d %r %r' % (i, line, country_line))
-            country_list.append(line)
-        if total_line:
-            line = clean_format(line)
-            print ('total children worker number: %d %r %r' % (i, line, country_line))
-            total_list.append(line)
+            # print ('country:%d %r %r' % (i, line, country_line))
+            country_list.append(clean_format(line))
+        elif total_line:
+            # print ('total children worker number: %d %r %r' % (i, line, country_line))
+            total_list.append(clean_format(line))
 
 
-        country_line = turn_on_off(line, country_line, 'and areas')
-        total_line = turn_on_off(line,total_line, 'total')
+        country_line = turn_on_off(line, country_line, previous_line, 'and areas')
+        total_line = turn_on_off(line,total_line, previous_line,'total')
+        previous_line = line
     print('countrys:%d,total:%d'%(len(country_list),len(total_list)))
-    print(country_list)
-    print(total_list)
+    # pprint.pprint(country_list)
+    # pprint.pprint(total_list)
     data = dict(zip(country_list, total_list))
-    # pprint.pprint(data)
+    pprint.pprint(data)
 
 def turn_on_off(line, status, start, previous_line = '', end = '\n'):
     '''
@@ -45,9 +46,9 @@ def turn_on_off(line, status, start, previous_line = '', end = '\n'):
     return status
 
 def clean_format(line):
-    # line = line.strip('\n').strip()
-    # line = line.replace('\xe2\x80\x93', '-')
-    # line = line.replace('\xe2\x80\x99', '\'')
+    line = line.strip('\n').strip()
+    line = line.replace('\xe2\x80\x93', '-')
+    line = line.replace('\xe2\x80\x99', '\'')
     return line
 
     

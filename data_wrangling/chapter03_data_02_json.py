@@ -1,6 +1,6 @@
 import json
 
-path = "book/data-wrangling/data/chp3/"
+path = "book/data/chp3/"
 filename = "data-text.json"
 
 json_data = open(path + filename).read()

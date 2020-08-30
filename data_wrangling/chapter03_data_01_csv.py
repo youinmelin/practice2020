@@ -4,7 +4,7 @@ import csv
 '''
 
 
-path = "book/data-wrangling/data/chp3/"
+path = "book/data/chp3/"
 filename = "data-text.csv"
 csvfile = open(path + filename, 'r')
 # save data as list

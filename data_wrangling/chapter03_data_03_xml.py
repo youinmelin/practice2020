@@ -1,6 +1,6 @@
 from xml.etree import ElementTree as ET
 
-path = "book/data-wrangling/data/chp3/"
+path = "book/data/chp3/"
 filename = "data-text.xml"
 
 tree = ET.parse(path + filename)

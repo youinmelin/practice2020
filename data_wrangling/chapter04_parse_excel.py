@@ -25,22 +25,21 @@ def excel_to_dict(path, filename, sheet_num = 0):
     key_num = len(key_list);
     print("col number:",key_num)
     print("titles:",key_list)
-    key_dict = {}
     # for key in key_list:
     #     key_dict[key]=''
     # pprint.pprint(key_dict)
 
-    for i in range(sheet.nrows):
+    for i in range(1,sheet.nrows):
+        # 从索引1开始循环，因为索引0是标题行
+        key_dict = {}
+        # 必须把空字典的定义放在for循环内部，每次会申请一个新地址
+        # 如果放在for循环外边，总是同一个地址，造成列表内的每个字典内容都一样
         row = (sheets_list[sheet_num].row_values(i))
         for j,cell in enumerate(row):
             key_dict[key_list[j]] = cell
-        # pprint.pprint (key_dict)
-        #pprint.pprint (all_list)
         all_list.append(key_dict)
-        print(i, all_list[i] )
+        # print(i, all_list[i] )
     # print('all_list', all_list)
-    for i in range(len(all_list)):
-        print(i, all_list[i] )
     return (all_list)
 
 import io
@@ -52,4 +51,4 @@ filename = "SOWC 2014 Stat Tables_Table 9.xlsx"
 path = 'data_source/'
 filename = 'students.xlsx'
 all_list = excel_to_dict(path,filename)
-# print('all_list', all_list)
+print('all_list', all_list)

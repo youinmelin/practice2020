@@ -6,9 +6,12 @@ import csv
 
 path = "book/data/chp3/"
 filename = "data-text.csv"
-csvfile = open(path + filename, 'r')
+path = 'book/data/unicef/'
+filename_data = 'mn.csv'
+filename = 'mn_headers.csv'
+csv_file = open(path + filename, 'r')
 # save data as list
-reader = csv.reader(csvfile)
+reader = csv.reader(csv_file)
 # print(type(reader))
 for i,row_list in enumerate(reader):
     if i < 5:
@@ -17,7 +20,7 @@ for i,row_list in enumerate(reader):
         break
 
 # save data as dict 
-reader = csv.DictReader(csvfile)
+reader = csv.DictReader(csv_file)
 print(type(reader))
 for i,row_dict in enumerate(reader):
     if i < 5:

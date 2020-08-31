@@ -3,11 +3,11 @@ import xlrd
 import pprint
 '''
 read excel files
-excel to dict 
+excel to dicts in a list
 the 1st line must be title line
 '''
 
-def excel_to_dict(path, filename, sheet_num = 0):
+def excel_to_dict_in_list(path, filename, sheet_num = 0):
     # xlrd.Book.encoding = "utf-8"
     # xlrd.Book.encoding = "gbk"
     book = xlrd.open_workbook(path + filename, encoding_override='gbk')
@@ -50,5 +50,5 @@ path = "book/data/chp4/"
 filename = "SOWC 2014 Stat Tables_Table 9.xlsx"
 path = 'data_source/'
 filename = 'students.xlsx'
-all_list = excel_to_dict(path,filename)
+all_list = excel_to_dict_in_list(path,filename)
 print('all_list', all_list)

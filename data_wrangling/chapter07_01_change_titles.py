@@ -19,7 +19,7 @@ data_list = []
 
 # read header
 for i, row in enumerate(header_rdr):
-    if i > 109:
+    if i > 1090:
         break
     # print(row)
     header_list.append(row)

@@ -81,23 +81,30 @@ def main(path, filename, keyword_department, list_master_keywords='', list_taxpa
     keyword_taxpayer = search_keyword(data_list, list_taxpayer_number_keywords)
     print('keyword_taxpayer', keyword_taxpayer)
 
-    new_list = pick_data(data_list, keyword_master, keyword_department)
-    new_list = sort_data(new_list, keyword_taxpayer)
-    print('排序后的结果:', new_list)
+    if keyword_master is None or keyword_taxpayer is None:
+        print('can not find any keywords')
+    else:
+        new_list = pick_data(data_list, keyword_master, keyword_department)
+        new_list = sort_data(new_list, keyword_taxpayer)
+        print('排序后的结果:', new_list)
 
-    # write list into a new excel file
-    df = pd.DataFrame(new_list)
-    filename = "panda_02_read_excel_02_sorted.xlsx"
-    prefix_filename = os.path.splitext(filename)[0]
-    suffix_filename = os.path.splitext(filename)[1]
-    new_filename = prefix_filename + '_sorted' + suffix_filename
-    df.to_excel(path + filename, sheet_name='new', index=False)
+        # write list into a new excel file
+        df = pd.DataFrame(new_list)
+        filename = "panda_02_read_excel_02_sorted.xlsx"
+        prefix_filename = os.path.splitext(filename)[0]
+        suffix_filename = os.path.splitext(filename)[1]
+        new_filename = prefix_filename + '_sorted' + suffix_filename
+        df.to_excel(path + filename, sheet_name='new', index=False)
 
 
 if __name__ == '__main__':
     path = "data_source/"
     filename = "panda_02_read_excel_02.xlsx"
+    # filename = "panda_01_write_excel_02.xlsx"
     list_taxpayer_number_keywords = ['纳税人识别号', '纳税识别号', '纳税人识别码', '纳税人识别码']
     list_master_keywords = ['主管所', '主管税务所', '税务所', '管理所']
     keyword_department = '沙河'
-    main(path, filename, keyword_department, list_master_keywords, list_taxpayer_number_keywords)
+    try:
+        main(path, filename, keyword_department, list_master_keywords, list_taxpayer_number_keywords)
+    except Exception as e:
+        print(e)

@@ -48,7 +48,7 @@ for data_dict in data_list:
     # loop dict in header_list
             if header_dict['Name'] == data_key_str:
     # judge same name between two dicts
-                # print('%s = %s' % (data_key_str, header_dict['Label']))
+                # kprint('%s = %s' % (data_key_str, header_dict['Label']))
                 new_row_dict[header_dict['Label']] = data_value_str
     data_new_list.append(new_row_dict)
 print(data_new_list)

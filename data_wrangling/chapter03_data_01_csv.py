@@ -13,9 +13,9 @@ csv_file = open(path + filename, 'r')
 # save data as list
 reader = csv.reader(csv_file)
 # print(type(reader))
-for i,row_list in enumerate(reader):
+for i, row_list in enumerate(reader):
     if i < 5:
-        print(i,row_list)
+        print(i, row_list)
     else:
         break
 

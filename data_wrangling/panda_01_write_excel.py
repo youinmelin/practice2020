@@ -14,4 +14,4 @@ df = pd.DataFrame(dict1)
 df.to_excel(path + filename, index=False)
 df = pd.DataFrame(list1)
 filename = "panda_01_write_excel_02.xlsx"
-df.to_excel(path + filename, index=False)
+df.to_excel(path + filename, sheet_name='new', index=False)

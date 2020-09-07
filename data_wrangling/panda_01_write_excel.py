@@ -1,8 +1,10 @@
 import pandas as pd
+from sys import argv
 from pandas import DataFrame
 
 path = "data_source/"
 filename = "panda_01_write_excel.xlsx"
+# filename = argv[1]
 # write excel file
 dict1 = {
     'name': ['Nancy', 'lin'],
@@ -14,4 +16,9 @@ df = pd.DataFrame(dict1)
 df.to_excel(path + filename, index=False)
 df = pd.DataFrame(list1)
 filename = "panda_01_write_excel_02.xlsx"
-df.to_excel(path + filename, sheet_name='new', index=False)
+with pd.ExcelWriter(path + filename) as writer:
+    df.to_excel(writer, sheet_name='new1', index=False)
+    df.to_excel(writer, sheet_name='new2', index=False)
+with pd.ExcelWriter(path + filename) as writer:
+    df.to_excel(writer, sheet_name='new3', index=False)
+    df.to_excel(writer, sheet_name='new4', index=False)

@@ -1,4 +1,6 @@
-# conding=utf-8
+# coding=utf-8
+from sys import argv
+
 import pandas as pd
 import os
 import operator
@@ -72,21 +74,31 @@ def main(path, filename, keyword_department, list_master_keywords='', list_taxpa
         list_master_keywords = ['主管所', '主管税务所', '税务所', '管理所']
 
     # read excel file to list(dicts)
-    df = pd.read_excel(path + filename)
-    data = df.values
-    data_list = df.to_dict(orient='records')
+    xl = pd.ExcelFile(path + filename)
+    sheet_names = xl.sheet_names
 
-    keyword_master = search_keyword(data_list, list_master_keywords)
-    print('keyword_master', keyword_master)
-    keyword_taxpayer = search_keyword(data_list, list_taxpayer_number_keywords)
-    print('keyword_taxpayer', keyword_taxpayer)
+    for sheet_name_str in sheet_names:
+        print("begin sheet: " + sheet_name_str)
+        df = pd.read_excel(path + filename, sheet_name=sheet_name_str)
+        data_list = df.to_dict(orient='records')
 
-    if keyword_master is None or keyword_taxpayer is None:
-        print('can not find any keywords')
-    else:
-        new_list = pick_data(data_list, keyword_master, keyword_department)
-        new_list = sort_data(new_list, keyword_taxpayer)
-        print('排序后的结果:', new_list)
+        keyword_master = search_keyword(data_list, list_master_keywords)
+        print('keyword_master', keyword_master)
+        keyword_taxpayer = search_keyword(data_list, list_taxpayer_number_keywords)
+        print('keyword_taxpayer', keyword_taxpayer)
+
+        # 如果标题栏中找不到纳税人信息，则不进行数据清洗,原样输出
+        new_list = data_list
+        if keyword_taxpayer is None:
+            print('can not find taxpayers keywords in sheet: ' + sheet_name_str)
+        else:
+            # 如果标题栏含有部门信息，就要筛选出本部门的内容
+            if keyword_master is not None:
+                new_list = pick_data(data_list, keyword_master, keyword_department)
+
+            # 按尾号排序
+            new_list = sort_data(new_list, keyword_taxpayer)
+            # print('排序后的结果:', new_list)
 
         # write list into a new excel file
         df = pd.DataFrame(new_list)
@@ -94,17 +106,34 @@ def main(path, filename, keyword_department, list_master_keywords='', list_taxpa
         prefix_filename = os.path.splitext(filename)[0]
         suffix_filename = os.path.splitext(filename)[1]
         new_filename = prefix_filename + '_sorted' + suffix_filename
-        df.to_excel(path + new_filename, sheet_name='new', index=False)
+        # open_file = open(path+new_filename, 'w')
+        # open_file.close()
+        df.to_excel(path + new_filename, sheet_name=sheet_name_str, index=False)
+        # with pd.ExcelWriter(path + filename, mode='a', engine='openpyxl') as writer:
+        #     df.to_excel(writer, sheet_name=sheet_name_str+'-按尾号排序')
+        print("end sheet: " + sheet_name_str)
+        break # 暂时循环一次，只处理第一个sheet
+        # 后续还有问题要解决：
+        #   1.空sheet
+        #   2.多个sheets的话如果用to_excel的话，后边的sheet会覆盖前边的。如果用ExcelWriter可以追加sheet在最后
+        #       但是会在最左侧增加一条索引列，另外用新文件名的话会提示找不到，用原文件名会每次都追加一堆sheet
 
 
 if __name__ == '__main__':
-    path = "data_source/"
-    filename = "附件：2017-2018年未超期多缴清册7.24.xlsx"
+    # path = "data_source/"
+    path = "D:\\testing_tools\\my_git\\practice2020\\data_wrangling\\data_source\\"
+    filename = "panda_02_read_excel_02.xlsx"
     # filename = 'master_taxpayers.xlsx'
+    # path = argv[1]
+    # filename = argv[1]
     list_taxpayer_number_keywords = ['纳税人识别号', '纳税识别号', '纳税人识别码', '纳税人识别码', '社会信用代码']
     list_master_keywords = ['主管所', '主管税务所', '税务所', '管理所']
     keyword_department = '沙河'
+    # main(path, filename, keyword_department, list_master_keywords, list_taxpayer_number_keywords)
     try:
         main(path, filename, keyword_department, list_master_keywords, list_taxpayer_number_keywords)
+        # pass
     except Exception as e:
         print(e)
+    else:
+        print('succeed')

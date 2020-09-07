@@ -91,16 +91,20 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/data_source" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="settings.editor.splitter.proportion" value="0.28985506" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\knowledge\IT\my_git\practice2020\data_wrangling\data_source" />
+      <recent name="E:\knowledge\IT\my_git\practice2020\data_wrangling" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\knowledge\IT\my_git\practice2020\data_wrangling" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.sort_excel_by_key">
+  <component name="RunManager" selected="Python.sort_excel_by_key_argv">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -120,48 +124,6 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <configuration name="find_the_one_digital_in_a_string" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="data_wrangling" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="E:\knowledge\IT\my_git\practice2020\data_wrangling\find_the_one_digital_in_a_string.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="panda_01_write_excel" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="data_wrangling" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/panda_01_write_excel.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="panda_02_read_excel" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="data_wrangling" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -175,27 +137,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/panda_02_read_excel.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="search_keyword" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="data_wrangling" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/search_keyword.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -225,20 +166,83 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="sort_excel_by_key_argv" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="data_wrangling" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sort_excel_by_key_argv.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="yaml_read (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="data_wrangling" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/yaml_read.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="yaml_read" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="data_wrangling" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data_source" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="E:\knowledge\IT\my_git\practice2020\data_wrangling\yaml_read.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Python.panda_02_read_excel" />
-      <item itemvalue="Python.find_the_one_digital_in_a_string" />
-      <item itemvalue="Python.panda_01_write_excel" />
       <item itemvalue="Python.sort_excel_by_key" />
-      <item itemvalue="Python.search_keyword" />
+      <item itemvalue="Python.sort_excel_by_key_argv" />
+      <item itemvalue="Python.yaml_read" />
+      <item itemvalue="Python.yaml_read (1)" />
+      <item itemvalue="Python.panda_02_read_excel" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.sort_excel_by_key" />
-        <item itemvalue="Python.search_keyword" />
+        <item itemvalue="Python.sort_excel_by_key_argv" />
         <item itemvalue="Python.panda_02_read_excel" />
-        <item itemvalue="Python.panda_01_write_excel" />
-        <item itemvalue="Python.find_the_one_digital_in_a_string" />
+        <item itemvalue="Python.yaml_read (1)" />
+        <item itemvalue="Python.yaml_read" />
+        <item itemvalue="Python.sort_excel_by_key" />
       </list>
     </recent_temporary>
   </component>
@@ -263,6 +267,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -277,22 +282,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="687" y="216" key="FileChooserDialogImpl/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599381157400" />
-    <state width="1892" height="289" key="GridCell.Tab.0.bottom" timestamp="1599401552168">
+    <state width="1892" height="289" key="GridCell.Tab.0.bottom" timestamp="1599484310220">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1892" height="289" key="GridCell.Tab.0.bottom/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599401552168" />
-    <state width="1892" height="289" key="GridCell.Tab.0.center" timestamp="1599401552168">
+    <state width="1892" height="289" key="GridCell.Tab.0.bottom/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599484310220" />
+    <state width="1892" height="289" key="GridCell.Tab.0.center" timestamp="1599484310219">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1892" height="289" key="GridCell.Tab.0.center/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599401552168" />
-    <state width="1892" height="289" key="GridCell.Tab.0.left" timestamp="1599401552168">
+    <state width="1892" height="289" key="GridCell.Tab.0.center/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599484310219" />
+    <state width="1892" height="289" key="GridCell.Tab.0.left" timestamp="1599484310219">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1892" height="289" key="GridCell.Tab.0.left/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599401552168" />
-    <state width="1892" height="289" key="GridCell.Tab.0.right" timestamp="1599401552168">
+    <state width="1892" height="289" key="GridCell.Tab.0.left/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599484310219" />
+    <state width="1892" height="289" key="GridCell.Tab.0.right" timestamp="1599484310219">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1892" height="289" key="GridCell.Tab.0.right/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599401552168" />
+    <state width="1892" height="289" key="GridCell.Tab.0.right/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599484310219" />
     <state x="329" y="63" key="SettingsEditor" timestamp="1599381197739">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

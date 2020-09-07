@@ -11,6 +11,10 @@ sheet_names = xl.sheet_names
 print(sheet_names)
 for sheet_str in sheet_names:
     df = pd.read_excel(path + filename, sheet_name=sheet_str)
+    # print("keys:", df.keys().size)
+    if df.keys().size == 0:
+        print(sheet_str + ' is empty.')
+        continue
     print("keys:", df.keys())
     data = df.values
 # print(data.values[0])

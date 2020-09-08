@@ -230,11 +230,11 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.panda_02_read_excel" />
       <item itemvalue="Python.sort_excel_by_key" />
       <item itemvalue="Python.sort_excel_by_key_argv" />
-      <item itemvalue="Python.yaml_read" />
       <item itemvalue="Python.yaml_read (1)" />
-      <item itemvalue="Python.panda_02_read_excel" />
+      <item itemvalue="Python.yaml_read" />
     </list>
     <recent_temporary>
       <list>
@@ -282,22 +282,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="687" y="216" key="FileChooserDialogImpl/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599381157400" />
-    <state width="1892" height="289" key="GridCell.Tab.0.bottom" timestamp="1599484310220">
+    <state width="1892" height="289" key="GridCell.Tab.0.bottom" timestamp="1599564079144">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1892" height="289" key="GridCell.Tab.0.bottom/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599484310220" />
-    <state width="1892" height="289" key="GridCell.Tab.0.center" timestamp="1599484310219">
+    <state width="1892" height="289" key="GridCell.Tab.0.bottom/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599564079144" />
+    <state width="1892" height="289" key="GridCell.Tab.0.center" timestamp="1599564079144">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1892" height="289" key="GridCell.Tab.0.center/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599484310219" />
-    <state width="1892" height="289" key="GridCell.Tab.0.left" timestamp="1599484310219">
+    <state width="1892" height="289" key="GridCell.Tab.0.center/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599564079144" />
+    <state width="1892" height="289" key="GridCell.Tab.0.left" timestamp="1599564079144">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1892" height="289" key="GridCell.Tab.0.left/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599484310219" />
-    <state width="1892" height="289" key="GridCell.Tab.0.right" timestamp="1599484310219">
+    <state width="1892" height="289" key="GridCell.Tab.0.left/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599564079144" />
+    <state width="1892" height="289" key="GridCell.Tab.0.right" timestamp="1599564079144">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1892" height="289" key="GridCell.Tab.0.right/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599484310219" />
+    <state width="1892" height="289" key="GridCell.Tab.0.right/-900.0.900.1560/0.0.1920.1040@0.0.1920.1040" timestamp="1599564079144" />
     <state x="329" y="63" key="SettingsEditor" timestamp="1599381197739">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

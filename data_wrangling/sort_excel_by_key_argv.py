@@ -40,14 +40,15 @@ def pick_data(pick_list, key, value):
     """
     pick data from dicts in a list
     从列表中的字典中寻找指定的内容，并返回符合条件的字典存入字典中
-    :param pick_list:
+    :param pick_list: 需要进行筛选的原始列表
     :param key: dict's key
     :param value: dict's value
     :return: list after picking
     """
     list_picked = []
     for row_dict in pick_list:
-        if value in row_dict[key]:
+        # row_dict[key] 有可能是数字类型的，所以要转成str才能进行查询
+        if value in str(row_dict[key]):
             list_picked.append(row_dict)
     return list_picked
 
@@ -60,7 +61,7 @@ def find_the_one_digital_in_str(origin_str, number=-1):
     :param number: which number of the digital do you want, the first is zero, the last is -1(default)
     :return: one digital in the str you want
     """
-    list_digitals = [i for i in origin_str if i.isdigit()]
+    list_digitals = [i for i in str(origin_str) if i.isdigit()]
     the_digital = list_digitals[number]
     return the_digital
 
@@ -90,9 +91,9 @@ def main(path, filename, keyword_department, list_master_keywords='', list_taxpa
         data_list = df.to_dict(orient='records')
 
         keyword_master = search_keyword(data_list, list_master_keywords)
-        print('keyword_master', keyword_master)
+        # print('keyword_master', keyword_master)
         keyword_taxpayer = search_keyword(data_list, list_taxpayer_number_keywords)
-        print('keyword_taxpayer', keyword_taxpayer)
+        # print('keyword_taxpayer', keyword_taxpayer)
 
         # 如果标题栏中找不到纳税人信息，则不进行数据清洗,原样输出
         new_list = data_list
@@ -113,7 +114,7 @@ def main(path, filename, keyword_department, list_master_keywords='', list_taxpa
         prefix_filename = os.path.splitext(filename)[0]
         suffix_filename = os.path.splitext(filename)[1]
         new_filename = prefix_filename + '_已排序' + suffix_filename
-        print('i:',i)
+        print('i:', i)
         if i == 0:
             df.to_excel(path + new_filename, sheet_name=sheet_name_str, index=False)
         else:
@@ -132,7 +133,7 @@ def main(path, filename, keyword_department, list_master_keywords='', list_taxpa
 if __name__ == '__main__':
     path = os.getcwd() + '\\data_source\\'
     filename = "panda_02_read_excel_02.xlsx"
-    filename = "附件：2017-2018年未超期多缴清册7.24.xlsx"
+    filename = "7月未申报0716.xlsx"
     # filename = argv[1]
     # yaml_filename = 'key_words.yml'
     # with open(path+filename, 'r', encoding='utf-8') as f:
@@ -142,10 +143,10 @@ if __name__ == '__main__':
     list_taxpayer_number_keywords = yaml_read.read_keywords_from_yaml()['taxpayer_number_keywords']
     list_master_keywords = yaml_read.read_keywords_from_yaml()['master_keywords']
     keyword_department = yaml_read.read_keywords_from_yaml()['keyword_department']
-    # main(path, filename, keyword_department, list_master_keywords, list_taxpayer_number_keywords)
+    main(path, filename, keyword_department, list_master_keywords, list_taxpayer_number_keywords)
     try:
-        main(path, filename, keyword_department, list_master_keywords, list_taxpayer_number_keywords)
-        # pass
+        # main(path, filename, keyword_department, list_master_keywords, list_taxpayer_number_keywords)
+        pass
     except Exception as e:
         print(e)
     else:

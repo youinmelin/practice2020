@@ -8,4 +8,9 @@ def read_keywords_from_yaml():
     # filename =os.getcwd() + '\\key_words.yml'
     with open(filename, 'rb') as f:
         s = f.read()
+    # print(filename)
     return yaml.load(s, Loader=yaml.FullLoader)
+
+
+if __name__ == '__main__':
+    print(read_keywords_from_yaml())

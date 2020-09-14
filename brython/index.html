@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<script type="text/javascript" src="brython.js"></script>
+<script type="text/javascript" src="brython_stdlib.js"></script>
+</head>
+
+<body onload="brython(1)">
+<script type="text/python">
+from browser import document,html
+import os
+import pandas as pd
+
+for i in range(0,10):
+	document <= i 
+	document <= html.B("<br>")
+document <= os.getcwd()
+
+
+document <= "Hello"
+
+path = "data_source/"
+path = os.getcwd() + "/"
+filename = "panda_01_write_excel.xlsx"
+# filename = argv[1]
+# write excel file
+dict1 = {
+    'name': ['Nancy', 'lin'],
+    'gander': ['female', 'male']
+}
+list1 = [{'id': 1.0, 'name': 'Nasa', 'gender': 'male', 'age': 8.0, 'class': '3-4'}, {'id': 2.0, 'name': 'Lin', 'gender': 'male', 'age': 40.0, 'class': '3-4'}, {'id': 3.0, 'name': 'Nancy', 'gender': 'famale', 'age': 37.0, 'class': '3-3'}, {'id': 4.0, 'name': 'XiangYu', 'gender': 'famale', 'age': 35.0, 'class': '3-1'}, {'id': 5.0, 'name': '郑林', 'gender': 'male', 'age': 20.0, 'class': '3-2'}]
+
+df = pd.DataFrame(dict1)
+df.to_excel(path + filename, index=False)
+df = pd.DataFrame(list1)
+filename = "panda_01_write_excel_02.xlsx"
+document <= path + filename
+with pd.ExcelWriter(path + filename) as writer:
+    df.to_excel(writer, sheet_name='new1', index=False)
+    df.to_excel(writer, sheet_name='new2', index=False)
+with pd.ExcelWriter(path + filename) as writer:
+    df.to_excel(writer, sheet_name='new3', index=False)
+    df.to_excel(writer, sheet_name='new4', index=False)
+</script>
+</body>
+
+</html>

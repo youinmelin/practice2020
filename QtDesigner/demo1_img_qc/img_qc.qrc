@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="png">
+    <file>img/input_test.png</file>
+    <file>img/conversion.png</file>
+    <file>img/import.png</file>
+  </qresource>
+</RCC>

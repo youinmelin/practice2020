@@ -12,29 +12,43 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Dialog(object):
+    # def __init__(self):
+    #     self.toolButton = None
+    #     self.toolButton_2 = None
+    #     self.lineEdit = None
+
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(560, 220)
+        Dialog.setMinimumSize(QtCore.QSize(560, 220))
+        Dialog.setMaximumSize(QtCore.QSize(560, 220))
 
+        # 主窗体widget控件
         self.centralwidget = QtWidgets.QWidget(Dialog)
         self.centralwidget.setObjectName('centralwidget')
 
+        # 导入文件按钮
         self.toolButton = QtWidgets.QToolButton(Dialog)
         self.toolButton.setEnabled(True)
-        self.toolButton = QtWidgets.QPushButton(self.centralwidget)
+        # self.toolButton = QtWidgets.QPushButton(self.centralwidget)
         self.toolButton.setGeometry(QtCore.QRect(190, 150, 81, 31))
-        self.toolButton.setStyleSheet("font: 75 12pt \"Aharoni\";")
+        self.toolButton.setStyleSheet("font: 75 12pt \"宋体\";")
         self.toolButton.setObjectName("toolButton")
 
+        self.user_textBrowser = QtWidgets.QTextBrowser(Dialog)
+        self.user_textBrowser.setGeometry(QtCore.QRect(90, 20, 401, 100))
+        self.user_textBrowser.setObjectName("user_textBrowser")
+        self.user_textBrowser.setText('该程序会筛选出所有“沙河税务所”的数据，并按照尾号排序。请点击“选择文件”指定要排序的表格文件，排序后会生成一个新文件，名为：“原文件名_已排序.xlsx”，不会覆盖原有文件。')
+        self.user_textBrowser.setStyleSheet("font: 75 12pt ;")
+        # self.user_textBrowser.setStyleSheet("background-image: url(:/bg.jpg) ;")
 
-        self.lineEdit = QtWidgets.QLineEdit(Dialog)
-        self.lineEdit.setGeometry(QtCore.QRect(90, 60, 401, 31))
-        self.lineEdit.setObjectName("lineEdit")
         self.toolButton_2 = QtWidgets.QToolButton(Dialog)
         self.toolButton_2.setEnabled(True)
         self.toolButton_2.setGeometry(QtCore.QRect(320, 150, 81, 31))
         self.toolButton_2.setStyleSheet("font: 75 12pt \"Aharoni\";")
         self.toolButton_2.setObjectName("toolButton_2")
+        self.toolButton_2.setDisabled(True)
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -42,5 +56,6 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.toolButton.setText(_translate("Dialog", "FILE"))
-        self.toolButton_2.setText(_translate("Dialog", "converse"))
+        self.toolButton.setText(_translate("Dialog", "选择文件"))
+        self.toolButton_2.setText(_translate("Dialog", "打开文件"))
+        Dialog.setWindowTitle('一键筛选排序')

@@ -65,7 +65,7 @@ def find_the_one_digital_in_str(origin_str, number=-1):
     if list_digitals:
         the_digital = list_digitals[number]
         return the_digital
-    return '0'
+    return ''
 
 
 def sort_data(sort_list, by_key, order='ascend'):
@@ -155,9 +155,10 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
         #       但是会在最左侧增加一条索引列，另外用新文件名的话会提示找不到，用原文件名会每次都追加一堆sheet
         #       已解决： 方法，处理第一个sheet时直接用to_excel写入一个新文件,后边的就先用with打开这个新文件
         #   3. 如果中间有空列或者没有数字的情况，遇到信用代码找尾号时就会报错
-        #      已解决，如果遇到此情况，按照尾号零处理（排到最前边）
+        #      已解决，如果遇到此情况，按照尾号零处理（排到最前边）或者直接略过（按尾号是空）
         #   4. 如果所有sheet都找不到要排序的关键字，需要给出提示
         #   5. 如果遇到表格不整齐，比如有合并格的处理 已解决：经测试目前无问题，可以忽略该列
+        #   6. 给出统计数字，共计多少列，每个尾号多少列
 
 
 if __name__ == '__main__':

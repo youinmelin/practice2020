@@ -101,6 +101,8 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
         xl = pd.ExcelFile(path + filename)
         sheet_names = xl.sheet_names  # get all name of sheets
         print('sheet_names: ', sheet_names)
+        # 保存做过处理的sheet名
+        sorted_sheets = []
 
         for sheet_num_int, sheet_name_str in enumerate(sheet_names):
             print("begin sheet: " + sheet_name_str)
@@ -120,11 +122,15 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
             if keyword_taxpayer is None:
                 print('can not find taxpayers keywords in sheet: ' + sheet_name_str)
             else:
-                # 如果标题栏含有部门信息，就要筛选出本部门的内容
-                if keyword_master is not None:
+                if keyword_master is None:
+                    # 如果标题栏没有部门信息，就要筛选出本部门的内容
+                    pass
+                else:
+                    # 如果标题栏含有部门信息，就要筛选出本部门的内容
                     new_list = pick_data(data_list, keyword_master, keyword_department)
 
-                # 按尾号排序
+                # 无论有没有部门信息，都会按纳税人识别号尾号排序
+                sorted_sheets.append(sheet_name_str)
                 new_list = sort_data(new_list, keyword_taxpayer)
                 # print('排序后的结果:', new_list)
 
@@ -141,8 +147,13 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
                 with pd.ExcelWriter(path + new_filename, mode='a', engine='openpyxl') as writer:
                     df.to_excel(writer, sheet_name=sheet_name_str, index=False)
             print("end sheet: " + sheet_name_str)
-        message = '筛选成功，文件名是：'
-        return new_filename, message
+        if sorted_sheets:
+            message = '筛选成功，文件名是：' + new_filename
+            return new_filename, message
+        else:
+            os.remove(new_filename)
+            message = '没有找到可以排序或者筛选的数据，请核实原文件内容'
+            return '', message
     else:
         message = '文件格式错误，只能处理EXCEL 2007以上的版本（以.xlsx结尾）的文件'
         return '', message

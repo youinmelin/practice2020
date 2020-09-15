@@ -23,9 +23,13 @@ class Main(QMainWindow, Ui_Dialog):
             self.input_path = filename[0]
             print(self.input_path)
             self.new_filename, self.message = sort_file(self.input_path)
-            self.show_result('%s%s' %(self.message, self.new_filename))
+            self.show_result('%s' %self.message)
             # 如果成功筛选，该按钮变为可以点击
-            self.toolButton_2.setDisabled(False)
+            if self.new_filename != '':
+                self.toolButton_2.setDisabled(False)
+            else:
+                self.toolButton_2.setDisabled(True)
+
 
 
     def show_result(self, result_str):

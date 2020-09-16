@@ -21,4 +21,9 @@ with pd.ExcelWriter(path + filename) as writer:
     df.to_excel(writer, sheet_name='new2', index=False)
 with pd.ExcelWriter(path + filename) as writer:
     df.to_excel(writer, sheet_name='new3', index=False)
+    work_sheets = writer.sheets
+    work_sheet = work_sheets['new3']
+    # set width of columns
+    work_sheet.column_dimensions['A'].width = 20
+    print(dir(work_sheet))
     df.to_excel(writer, sheet_name='new4', index=False)

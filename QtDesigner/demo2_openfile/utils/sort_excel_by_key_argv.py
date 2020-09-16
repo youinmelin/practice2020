@@ -6,6 +6,7 @@ import os
 import operator
 from pandas import DataFrame
 import pprint
+from openpyxl.utils import get_column_letter
 
 """
  py文件相同目录下要有yaml_read.py文件，还要有个子文件夹data_source存放key_words.yml文件
@@ -61,20 +62,32 @@ def find_the_one_digital_in_str(origin_str, number=-1):
     :return: one digital in the str you want, if no digital in the string, then return 0
     """
     list_digitals = [i for i in str(origin_str) if i.isdigit()]
-    # 如果当前cell中没有数字，则返回'0'
+    # 如果当前cell中没有数字，则返回''
     if list_digitals:
         the_digital = list_digitals[number]
         return the_digital
-    return ''
+    return '0'
 
 
 def sort_data(sort_list, by_key, order='ascend'):
+    """
+    按照关键字排序
+    :param sort_list: 要排序的list，里边存放的是每一行的字典数据（row_dict)
+    :param by_key: 被排序的列的标题名
+    :param order:
+    :return: 排好序的列
+    """
     list_sorted = []
     # list_sorted = sorted(sort_list, key=operator.itemgetter(by_key))
     for i in range(10):
         # 从0到9遍历数字，按尾号排序
         for row_dict in sort_list:
             cell_value = row_dict[by_key]
+            # 如果
+            if find_the_one_digital_in_str(cell_value) is None:
+                list_sorted.append(row_dict)
+                continue
+
             if find_the_one_digital_in_str(cell_value) == str(i):
                 list_sorted.append(row_dict)
     return list_sorted;
@@ -100,11 +113,18 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
             list_master_keywords = ['主管所', '主管税务所', '税务所', '管理所', '外围所',
                                     '主管税务所（科、分局）', '主管税务所(科、分局)']
         # read excel file to list(dicts)
-        xl = pd.ExcelFile(path + filename)
+        try:
+            xl = pd.ExcelFile(path + filename)
+        except:
+            message = '找不到此文件，请重试'
+            return '', message
         sheet_names = xl.sheet_names  # get all name of sheets
         print('sheet_names: ', sheet_names)
         # 保存做过处理的sheet名
         sorted_sheets = []
+
+        # set width of column
+        WIDTH = 19
 
         # 遍历每一个sheet
         for sheet_num_int, sheet_name_str in enumerate(sheet_names):
@@ -114,7 +134,7 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
                 print(sheet_name_str + ' is empty.')
                 continue
             data_list = df.to_dict(orient='records')
-            print(df.to_dict(orient='splite')['columns'])
+            # print(df.to_dict(orient='splite')['columns'])
             # 取得原表的表头，输出时候还按照原表头的顺序
             order = df.to_dict(orient='splite')['columns']
             # title_dict = data_list[0]
@@ -152,17 +172,29 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
             print('sheet_num_int:', sheet_num_int)
             try:
                 if sheet_num_int == 0:
-                    df.to_excel(path + new_filename, sheet_name=sheet_name_str, index=False)
+                    writer = pd.ExcelWriter(path + new_filename)
+                    df.to_excel(writer, sheet_name=sheet_name_str, index=False)
+                    work_sheet = writer.sheets[sheet_name_str]
+                    # set width of all columns
+                    for i in range(1, work_sheet.max_column + 1):
+                        work_sheet.column_dimensions[get_column_letter(i)].width = WIDTH
+                    writer.save()
+                    writer.close()
                 else:
                     with pd.ExcelWriter(path + new_filename, mode='a', engine='openpyxl') as writer:
                         df.to_excel(writer, sheet_name=sheet_name_str, index=False)
+                        work_sheet = writer.sheets[sheet_name_str]
+                        # set width of all columns
+                        for i in range(1, work_sheet.max_column + 1):
+                            work_sheet.column_dimensions[get_column_letter(i)].width = WIDTH
                 print("end sheet: " + sheet_name_str)
             except Exception as e:
-                return '', '文件写入错误，请关闭已打开的文件：%s' % new_filename
+                message = '文件写入错误\n请尝试关闭此文件：%s' % new_filename
+                return '', message
                 print(e)
 
         if sorted_sheets:
-            message = '筛选成功，文件名是：' + new_filename
+            message = '筛选成功\n文件名是：' + new_filename
             return new_filename, message
         else:
             # 把已经新建的文件（原样输出）删除
@@ -173,23 +205,24 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
         message = '文件格式错误，只能处理EXCEL（以.xlsx 或.xls结尾）文件'
         return '', message
     '''
-    # os.remove((path+filename))
-    # os.rename(path+new_filename, path+filename)
-    # break # 暂时循环一次，只处理第一个sheet
-    # 后续还有问题要解决：
-    #   1.空sheet: if df.keys().size == 0: 已解决
-    #   2.多个sheets的话如果用to_excel的话，后边的sheet会覆盖前边的。如果用ExcelWriter可以追加sheet在最后
-    #       但是会在最左侧增加一条索引列，另外用新文件名的话会提示找不到，用原文件名会每次都追加一堆sheet
-    #       已解决： 方法，处理第一个sheet时直接用to_excel写入一个新文件,后边的就先用with打开这个新文件
-    #   3. 如果中间有空列或者没有数字的情况，遇到信用代码找尾号时就会报错
-    #      已解决，如果遇到此情况，按照尾号零处理（排到最前边）或者直接略过（按尾号是空）
-    #   4. 如果所有sheet都找不到要排序的关键字，需要给出提示 已解决
-    #   5. 如果遇到表格不整齐，比如有合并格的处理 已解决：经测试目前无问题，可以忽略该列
-    #   6. 给出统计数字，共计多少列，每个尾号多少列 未解决：对于多个sheet的表格不太实用
-    #   7. 遇到错误的处理，比如文件已占用 已解决
-        8.  可以处理xlsx,xls格式的文件 
+     os.remove((path+filename))
+     os.rename(path+new_filename, path+filename)
+     break # 暂时循环一次，只处理第一个sheet
+     后续还有问题要解决：
+       1.空sheet: if df.keys().size == 0: 已解决
+       2.多个sheets的话如果用to_excel的话，后边的sheet会覆盖前边的。如果用ExcelWriter可以追加sheet在最后
+           但是会在最左侧增加一条索引列，另外用新文件名的话会提示找不到，用原文件名会每次都追加一堆sheet
+           已解决： 方法，处理第一个sheet时直接用to_excel写入一个新文件,后边的就先用with打开这个新文件
+       3. 如果中间有空列或者没有数字的情况，遇到信用代码找尾号时就会报错
+          已解决，如果遇到此情况，按照尾号零处理（排到最前边）或者直接略过（按尾号是空）
+       4. 如果所有sheet都找不到要排序的关键字，需要给出提示 已解决
+       5. 如果遇到表格不整齐，比如有合并格的处理 已解决：经测试目前无问题，可以忽略该列
+       6. 给出统计数字，共计多少列，每个尾号多少列 未解决：对于多个sheet的表格不太实用
+       7. 遇到错误的处理，比如文件已被其他软件占用（打开） 已解决
+       8. 可以处理xlsx,xls格式的文件 
+       9. 加入找不到文件的处理
+       A. 更改列宽 已完成 每个列宽都相等，用WIDTH保存列宽变量
     '''
-
 
 
 if __name__ == '__main__':
@@ -197,7 +230,7 @@ if __name__ == '__main__':
 
     path = os.getcwd() + '\\'
     filename = "panda_02_read_excel_02.xlsx"
-    filename = "7月未申报0716_sws.xlsx"
+    filename = "7月未申报0716sws.xls"
     # filename = argv[1]
     # yaml_filename = 'key_words.yml'
     # with open(path+filename, 'r', encoding='utf-8') as f:

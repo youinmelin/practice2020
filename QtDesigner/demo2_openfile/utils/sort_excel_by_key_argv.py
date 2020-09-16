@@ -84,7 +84,7 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
     print('sort_file, file name: ', filename)
 
     suffix_filename = os.path.splitext(filename)[1]
-    if suffix_filename == '.xlsx':
+    if suffix_filename == '.xlsx' or suffix_filename == '.xls':
         if keyword_department == '':
             # keyword_department = yaml_read.read_keywords_from_yaml()['keyword_department']
             keyword_department = '沙河'
@@ -93,10 +93,12 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
             list_taxpayer_number_keywords = ['纳税人识别号', '纳税识别号', '纳税人识别码',
                                              '纳税识别码', '社会信用代码', '社会信用代码(纳税人识别号)',
                                              '社会信用代码(纳税识别号)', '社会信用代码（纳税人识别号）',
-                                             '社会信用代码（纳税识别号）', '税号', '信用代码', '营业执照号码']
+                                             '社会信用代码（纳税识别号）', '税号', '信用代码', '营业执照号码',
+                                             '统一社会信用代码', '纳税人税号', '企业识别号', '企业税号', 'SHXYDM']
         if not list_master_keywords:
             # list_master_keywords = yaml_read.read_keywords_from_yaml()['master_keywords']
-            list_master_keywords = ['主管所', '主管税务所', '税务所', '管理所', '主管税务机关', '管理所']
+            list_master_keywords = ['主管所', '主管税务所', '税务所', '管理所', '外围所',
+                                    '主管税务所（科、分局）', '主管税务所(科、分局)']
         # read excel file to list(dicts)
         xl = pd.ExcelFile(path + filename)
         sheet_names = xl.sheet_names  # get all name of sheets
@@ -104,6 +106,7 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
         # 保存做过处理的sheet名
         sorted_sheets = []
 
+        # 遍历每一个sheet
         for sheet_num_int, sheet_name_str in enumerate(sheet_names):
             print("begin sheet: " + sheet_name_str)
             df = pd.read_excel(path + filename, sheet_name=sheet_name_str)
@@ -111,6 +114,11 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
                 print(sheet_name_str + ' is empty.')
                 continue
             data_list = df.to_dict(orient='records')
+            print(df.to_dict(orient='splite')['columns'])
+            # 取得原表的表头，输出时候还按照原表头的顺序
+            order = df.to_dict(orient='splite')['columns']
+            # title_dict = data_list[0]
+            # order = list(title_dict.keys())
 
             keyword_master = search_keyword(data_list, list_master_keywords)
             # print('keyword_master', keyword_master)
@@ -136,59 +144,73 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
 
             # write list into a new excel file
             df = pd.DataFrame(new_list)
-            # filename = "panda_02_read_excel_02_sorted.xlsx"
+            df = df[order]
             prefix_filename = os.path.splitext(filename)[0]
             suffix_filename = os.path.splitext(filename)[1]
-            new_filename = prefix_filename + '_已排序' + suffix_filename
+            # new_filename = prefix_filename + '_已排序' + suffix_filename
+            new_filename = prefix_filename + '_已排序.xlsx'
             print('sheet_num_int:', sheet_num_int)
-            if sheet_num_int == 0:
-                df.to_excel(path + new_filename, sheet_name=sheet_name_str, index=False)
-            else:
-                with pd.ExcelWriter(path + new_filename, mode='a', engine='openpyxl') as writer:
-                    df.to_excel(writer, sheet_name=sheet_name_str, index=False)
-            print("end sheet: " + sheet_name_str)
+            try:
+                if sheet_num_int == 0:
+                    df.to_excel(path + new_filename, sheet_name=sheet_name_str, index=False)
+                else:
+                    with pd.ExcelWriter(path + new_filename, mode='a', engine='openpyxl') as writer:
+                        df.to_excel(writer, sheet_name=sheet_name_str, index=False)
+                print("end sheet: " + sheet_name_str)
+            except Exception as e:
+                return '', '文件写入错误，请关闭已打开的文件：%s' % new_filename
+                print(e)
+
         if sorted_sheets:
             message = '筛选成功，文件名是：' + new_filename
             return new_filename, message
         else:
+            # 把已经新建的文件（原样输出）删除
             os.remove(new_filename)
             message = '没有找到可以排序或者筛选的数据，请核实原文件内容'
             return '', message
     else:
-        message = '文件格式错误，只能处理EXCEL 2007以上的版本（以.xlsx结尾）的文件'
+        message = '文件格式错误，只能处理EXCEL（以.xlsx 或.xls结尾）文件'
         return '', message
+    '''
     # os.remove((path+filename))
     # os.rename(path+new_filename, path+filename)
     # break # 暂时循环一次，只处理第一个sheet
-        # 后续还有问题要解决：
-        #   1.空sheet: if df.keys().size == 0: 已解决
-        #   2.多个sheets的话如果用to_excel的话，后边的sheet会覆盖前边的。如果用ExcelWriter可以追加sheet在最后
-        #       但是会在最左侧增加一条索引列，另外用新文件名的话会提示找不到，用原文件名会每次都追加一堆sheet
-        #       已解决： 方法，处理第一个sheet时直接用to_excel写入一个新文件,后边的就先用with打开这个新文件
-        #   3. 如果中间有空列或者没有数字的情况，遇到信用代码找尾号时就会报错
-        #      已解决，如果遇到此情况，按照尾号零处理（排到最前边）或者直接略过（按尾号是空）
-        #   4. 如果所有sheet都找不到要排序的关键字，需要给出提示
-        #   5. 如果遇到表格不整齐，比如有合并格的处理 已解决：经测试目前无问题，可以忽略该列
-        #   6. 给出统计数字，共计多少列，每个尾号多少列
+    # 后续还有问题要解决：
+    #   1.空sheet: if df.keys().size == 0: 已解决
+    #   2.多个sheets的话如果用to_excel的话，后边的sheet会覆盖前边的。如果用ExcelWriter可以追加sheet在最后
+    #       但是会在最左侧增加一条索引列，另外用新文件名的话会提示找不到，用原文件名会每次都追加一堆sheet
+    #       已解决： 方法，处理第一个sheet时直接用to_excel写入一个新文件,后边的就先用with打开这个新文件
+    #   3. 如果中间有空列或者没有数字的情况，遇到信用代码找尾号时就会报错
+    #      已解决，如果遇到此情况，按照尾号零处理（排到最前边）或者直接略过（按尾号是空）
+    #   4. 如果所有sheet都找不到要排序的关键字，需要给出提示 已解决
+    #   5. 如果遇到表格不整齐，比如有合并格的处理 已解决：经测试目前无问题，可以忽略该列
+    #   6. 给出统计数字，共计多少列，每个尾号多少列 未解决：对于多个sheet的表格不太实用
+    #   7. 遇到错误的处理，比如文件已占用 已解决
+        8.  可以处理xlsx,xls格式的文件 
+    '''
+
 
 
 if __name__ == '__main__':
-    import yaml_read
-    path = os.getcwd() + '\\..\\data_source\\'
+    # import yaml_read
+
+    path = os.getcwd() + '\\'
     filename = "panda_02_read_excel_02.xlsx"
-    filename = "7月未申报0716.xlsx"
+    filename = "7月未申报0716_sws.xlsx"
     # filename = argv[1]
     # yaml_filename = 'key_words.yml'
     # with open(path+filename, 'r', encoding='utf-8') as f:
     #     s = f.read()
     # key_words = yaml.load(s, Loader=yaml.FullLoader)
 
-    list_taxpayer_number_keywords = yaml_read.read_keywords_from_yaml()['taxpayer_number_keywords']
-    list_master_keywords = yaml_read.read_keywords_from_yaml()['master_keywords']
-    keyword_department = yaml_read.read_keywords_from_yaml()['keyword_department']
-    sort_file(filename, path, keyword_department, list_master_keywords, list_taxpayer_number_keywords)
+    # list_taxpayer_number_keywords = yaml_read.read_keywords_from_yaml()['taxpayer_number_keywords']
+    # list_master_keywords = yaml_read.read_keywords_from_yaml()['master_keywords']
+    # keyword_department = yaml_read.read_keywords_from_yaml()['keyword_department']
+    filename_str, message = sort_file(filename, path)
+    # filename_str, message = sort_file(filename, path, keyword_department, list_master_keywords, list_taxpayer_number_keywords)
     try:
-        filename_str, message = sort_file(filename, path, keyword_department, list_master_keywords, list_taxpayer_number_keywords)
+        # filename_str, message = sort_file(filename, path, keyword_department, list_master_keywords, list_taxpayer_number_keywords)
         print('filename', filename)
         print('message', message)
         pass

@@ -37,10 +37,13 @@ class Ui_Dialog(object):
         self.toolButton.setObjectName("toolButton")
 
         self.user_textBrowser = QtWidgets.QTextBrowser(Dialog)
-        self.user_textBrowser.setGeometry(QtCore.QRect(90, 20, 401, 100))
+        self.user_textBrowser.setGeometry(QtCore.QRect(90, 20, 401, 120))
         self.user_textBrowser.setObjectName("user_textBrowser")
-        self.user_textBrowser.setText('该程序会筛选出所有“沙河税务所”的数据，并按照尾号排序。请点击“选择文件”指定要排序的表格文件，排序后会生成一个新文件，名为：“原文件名_已排序.xlsx”，不会覆盖原有文件。')
-        self.user_textBrowser.setStyleSheet("font: 75 12pt ;")
+        self.user_textBrowser.setText('该程序会筛选出所有“沙河税务所”的数据，并按照尾号排序。'
+                                      '请点击“选择文件”指定要排序的表格文件，排序后会生成一个新文件，'
+                                      '名为：“原文件名_已排序.xlsx”，不会覆盖原有文件。'
+                                      '')
+        self.user_textBrowser.setStyleSheet("font: 75 11pt ;")
         # self.user_textBrowser.setStyleSheet("background-image: url(:/bg.jpg) ;")
 
         self.toolButton_2 = QtWidgets.QToolButton(Dialog)

@@ -156,6 +156,8 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
                 else:
                     # 如果标题栏含有部门信息，就要筛选出本部门的内容
                     new_list = pick_data(data_list, keyword_master, keyword_department)
+                    if new_list == []:
+                        continue
 
                 # 无论有没有部门信息，都会按纳税人识别号尾号排序
                 sorted_sheets.append(sheet_name_str)
@@ -222,6 +224,8 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
        8. 可以处理xlsx,xls格式的文件 
        9. 加入找不到文件的处理
        A. 更改列宽 已完成 每个列宽都相等，用WIDTH保存列宽变量
+       B. 有税务所列但是没有关键字税务所，会发生错误 
+          已解决：如果有部门列但是没有此部门数据，直接跳过这个sheet的操作，已排序的表里没有这个sheet
     '''
 
 
@@ -230,7 +234,7 @@ if __name__ == '__main__':
 
     path = os.getcwd() + '\\'
     filename = "panda_02_read_excel_02.xlsx"
-    filename = "7月未申报0716sws.xls"
+    filename = "7月未申报0716.xlsx"
     # filename = argv[1]
     # yaml_filename = 'key_words.yml'
     # with open(path+filename, 'r', encoding='utf-8') as f:

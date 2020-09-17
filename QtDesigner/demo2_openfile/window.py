@@ -37,7 +37,7 @@ class Ui_Dialog(object):
         self.toolButton.setObjectName("toolButton")
 
         self.user_textBrowser = QtWidgets.QTextBrowser(Dialog)
-        self.user_textBrowser.setGeometry(QtCore.QRect(90, 20, 401, 120))
+        self.user_textBrowser.setGeometry(QtCore.QRect(90, 15, 401, 120))
         self.user_textBrowser.setObjectName("user_textBrowser")
         self.user_textBrowser.setText('   该程序会筛选出所有“沙河税务所”的数据，并按照尾号排序。'
                                       '\n   排序后会生成一个新文件，'

@@ -111,7 +111,7 @@ def sort_file(filename, path='', keyword_department='', list_master_keywords=[],
         if not list_master_keywords:
             # list_master_keywords = yaml_read.read_keywords_from_yaml()['master_keywords']
             list_master_keywords = ['主管所', '主管税务所', '税务所', '管理所', '外围所',
-                                    '主管税务所（科、分局）', '主管税务所(科、分局)']
+                                    '主管税务所（科、分局）', '主管税务所(科、分局)','主管税务所名称','税务所']
         # read excel file to list(dicts)
         try:
             xl = pd.ExcelFile(path + filename)
